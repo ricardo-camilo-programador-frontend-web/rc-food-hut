@@ -13,6 +13,7 @@ declare global {
 }
 
 import { Component, OnInit } from "@angular/core";
+import { env } from "@/configs/env";
 import { CommonModule } from "@angular/common";
 import {
   saveItemOnLocalStorage,
@@ -97,7 +98,7 @@ export class TrackingConsentComponent implements OnInit {
   }
 
   private initializeClarity(): void {
-    const gtmId = "google-key-from-env";
+    const gtmId = env.GTM_ID;
 
     if (gtmId) {
       window.dataLayer.push({
