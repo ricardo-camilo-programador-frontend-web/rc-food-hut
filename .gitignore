@@ -9,4 +9,3 @@ dist
 .pnpm-store
 # Workflow state
 dist/workflow/
-src/configs/env.ts
