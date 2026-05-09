@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "NG_BUILD_PARALLEL_TS=0 ng serve",
-    "build": "ng build",
+    "build": "npx tsx scripts/generate-env.ts && ng build",
     "watch": "ng build --watch --configuration development",
     "security:scan": "npx tsx scripts/security/security-scan.ts",
     "security:clean": "npx tsx scripts/security/security-clean.ts",

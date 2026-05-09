@@ -3,6 +3,7 @@ import { ModalComponent } from "@/components/Modal.component";
 import { CommonModule } from "@angular/common";
 import { saveItemOnLocalStorage, getItemFromLocalStorage } from "@/utils/localStorageHandler";
 import { Router, RouterModule } from "@angular/router";
+import { env } from "@/configs/env";
 import { ImageComponent } from "@/components/Image.component";
 import { TranslatePipe } from "@/pipes/translate.pipe";
 
@@ -199,15 +200,17 @@ export class IntroWarningModalSection implements AfterViewInit {
   }
 
   loadAnalyticsScript(): void {
-    if (!document.querySelector('script[data-id="f30df6f3-776d-4154-959d-0210ac8a8325"]')) {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.counter.dev/script.js';
-      script.dataset['id'] = 'f30df6f3-776d-4154-959d-0210ac8a8325';
-      script.dataset['utcoffset'] = '-3';
-      script.async = true;
-      script.onerror = () => script.remove();
-      document.body.appendChild(script);
+    const counterId = env.COUNTER_DEV_ID;
+    if (!counterId || document.querySelector(`script[data-id="${counterId}"]`)) {
+      return;
     }
+    const script = document.createElement('script');
+    script.src = 'https://cdn.counter.dev/script.js';
+    script.dataset['id'] = counterId;
+    script.dataset['utcoffset'] = '-3';
+    script.async = true;
+    script.onerror = () => script.remove();
+    document.body.appendChild(script);
   }
 
   getToggleButtonClasses(): string {
