@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build do Projeto
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     timeout-minutes: 15
     env:
       VITE_PORTFOLIO_URL: ""
@@ -54,7 +54,7 @@ jobs:
 
   security:
     name: Auditoria de Seguranca
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     timeout-minutes: 10
     continue-on-error: true
     steps:
