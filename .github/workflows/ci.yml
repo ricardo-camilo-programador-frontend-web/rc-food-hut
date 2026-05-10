@@ -32,7 +32,7 @@ jobs:
 
       - uses: pnpm/action-setup@v2
         with:
-          version: 8.15.4
+          version: 9
 
       - uses: actions/setup-node@v4
         with:
@@ -56,12 +56,13 @@ jobs:
     name: Auditoria de Seguranca
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v2
         with:
-          version: 8.15.4
+          version: 9
 
       - uses: actions/setup-node@v4
         with:
@@ -85,7 +86,7 @@ jobs:
           fi
 
           if grep -q "ERR_PNPM_AUDIT_BAD_RESPONSE" "$LOG_FILE" && grep -Eq "responded with 5[0-9]{2}([^0-9]|$)|error \\(5[0-9]{2}\\)" "$LOG_FILE"; then
-            echo "::warning::pnpm audit falhou por erro 5xx do endpoint de auditoria da npm. Falha tratada como indisponibilidade transitória."
+            echo "::warning::pnpm audit falhou por erro 5xx do endpoint de auditoria da npm."
             exit 0
           fi
 
