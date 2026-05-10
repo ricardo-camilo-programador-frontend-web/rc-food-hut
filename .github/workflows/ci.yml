@@ -8,22 +8,85 @@ on:
 
 jobs:
   build:
+    name: Build do Projeto
     runs-on: ubuntu-latest
-
+    timeout-minutes: 15
+        env:
+          VITE_PORTFOLIO_URL: ""
+          VITE_GITHUB_URL: ""
+          VITE_LINKEDIN_URL: ""
+          VITE_X_URL: ""
+          VITE_INSTAGRAM_URL: ""
+          VITE_YOUTUBE_URL: ""
+          VITE_FACEBOOK_URL: ""
+          VITE_99FREELAS_URL: ""
+          VITE_WORKANA_URL: ""
+          VITE_BUYMEACOFFEE_URL: ""
+          VITE_FIGMA_URL: ""
+          VITE_CONTACT_EMAIL: ""
+          VITE_GA_MEASUREMENT_ID: ""
+          VITE_GTM_ID: ""
+          VITE_COUNTER_DEV_ID: ""
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: '20'
+          version: 8.15.4
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Instalar dependencias
+        run: pnpm install
 
-      - Name: Build
+      - name: Build do projeto
         run: pnpm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-dist
+          path: dist/
+          retention-days: 7
+
+  security:
+    name: Auditoria de Seguranca
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+
+      - name: Instalar dependencias
+        run: pnpm install
+
+      - name: Auditoria de vulnerabilidades
+        shell: bash
+        run: |
+          set -o pipefail
+          LOG_FILE="$(mktemp)"
+
+          pnpm audit --audit-level moderate 2>&1 | tee "$LOG_FILE"
+          status=${PIPESTATUS[0]}
+
+          if [ "$status" -eq 0 ]; then
+            exit 0
+          fi
+
+          if grep -q "ERR_PNPM_AUDIT_BAD_RESPONSE" "$LOG_FILE" && grep -Eq "responded with 5[0-9]{2}([^0-9]|$)|error \\(5[0-9]{2}\\)" "$LOG_FILE"; then
+            echo "::warning::pnpm audit falhou por erro 5xx do endpoint de auditoria da npm. Falha tratada como indisponibilidade transitória."
+            exit 0
+          fi
+
+          exit "$status"
