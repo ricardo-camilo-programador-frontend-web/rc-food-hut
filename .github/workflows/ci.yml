@@ -11,22 +11,22 @@ jobs:
     name: Build do Projeto
     runs-on: ubuntu-latest
     timeout-minutes: 15
-        env:
-          VITE_PORTFOLIO_URL: ""
-          VITE_GITHUB_URL: ""
-          VITE_LINKEDIN_URL: ""
-          VITE_X_URL: ""
-          VITE_INSTAGRAM_URL: ""
-          VITE_YOUTUBE_URL: ""
-          VITE_FACEBOOK_URL: ""
-          VITE_99FREELAS_URL: ""
-          VITE_WORKANA_URL: ""
-          VITE_BUYMEACOFFEE_URL: ""
-          VITE_FIGMA_URL: ""
-          VITE_CONTACT_EMAIL: ""
-          VITE_GA_MEASUREMENT_ID: ""
-          VITE_GTM_ID: ""
-          VITE_COUNTER_DEV_ID: ""
+    env:
+      VITE_PORTFOLIO_URL: ""
+      VITE_GITHUB_URL: ""
+      VITE_LINKEDIN_URL: ""
+      VITE_X_URL: ""
+      VITE_INSTAGRAM_URL: ""
+      VITE_YOUTUBE_URL: ""
+      VITE_FACEBOOK_URL: ""
+      VITE_99FREELAS_URL: ""
+      VITE_WORKANA_URL: ""
+      VITE_BUYMEACOFFEE_URL: ""
+      VITE_FIGMA_URL: ""
+      VITE_CONTACT_EMAIL: ""
+      VITE_GA_MEASUREMENT_ID: ""
+      VITE_GTM_ID: ""
+      VITE_COUNTER_DEV_ID: ""
     steps:
       - uses: actions/checkout@v4
 
