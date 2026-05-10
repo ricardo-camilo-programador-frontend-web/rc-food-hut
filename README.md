@@ -1,3 +1,4 @@
+[![CI](https://github.com/ricardo-camilo-programador-frontend-web/angular-chronicles-part-1/actions/workflows/ci.yml/badge.svg)](https://github.com/ricardo-camilo-programador-frontend-web/angular-chronicles-part-1/actions)
 # 🍽 Food Hut - Angular Chronicles - Part 1
 
 ## 🎯 Project Overview
