@@ -192,6 +192,8 @@ export class IntroWarningModalSection implements OnInit {
 
     if (this.analyticsEnabled) {
       this.loadAnalytics();
+    } else {
+      this.clarityService.setConsent(false);
     }
   }
 

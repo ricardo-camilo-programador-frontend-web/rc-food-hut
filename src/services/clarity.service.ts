@@ -1,8 +1,6 @@
 import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { env } from '@/configs/env';
 
 declare global {
@@ -15,12 +13,15 @@ declare global {
 export class ClarityService {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly document = inject(DOCUMENT) as Document;
-  private readonly router = inject(Router);
   private loaded = false;
 
   /**
-   * Injects the Microsoft Clarity script into <head>.
+   * Injects the Microsoft Clarity script into <head> and sends consent signal.
    * Only runs in browser context. Safe to call multiple times.
+   *
+   * Per ConsentV2 docs, Clarity requires explicit consent for EEA/UK/CH users.
+   * Without it, Clarity assigns a unique ID per page view (no session persistence).
+   * https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-consent-api-v2
    */
   init(): void {
     if (!isPlatformBrowser(this.platformId)) return;
@@ -47,20 +48,29 @@ export class ClarityService {
 
     this.loaded = true;
 
-    // SPA route tracking: Clarity needs manual pageview updates for client-side navigation
-    this.router.events
-      .pipe(
-        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-      )
-      .subscribe((event: NavigationEnd) => {
-        if (w.clarity) {
-          w.clarity('set', 'page', event.urlAfterRedirects);
-        }
-      });
+    // Send ConsentV2 signal — required for EEA/UK/CH since Oct 31, 2025
+    // Without this, Clarity does not persist cookies in those regions.
+    this.setConsent(true);
   }
 
   /**
-   * Uploads a custom tag/cookie to Clarity for session identification.
+   * Sends ConsentV2 signal to Clarity.
+   * @param granted Whether the user granted analytics consent.
+   *
+   * When granted: Clarity sets cookies and tracks across sessions.
+   * When denied:  Clarity deletes cookies, ends session, operates in no-consent mode.
+   */
+  setConsent(granted: boolean): void {
+    if (!this.loaded || !window.clarity) return;
+
+    window.clarity('consentv2', {
+      ad_Storage: granted ? 'granted' : 'denied',
+      analytics_Storage: granted ? 'granted' : 'denied',
+    });
+  }
+
+  /**
+   * Uploads a custom tag to Clarity for session identification.
    * @param key Tag name
    * @param value Tag value
    */
@@ -84,6 +94,7 @@ export class ClarityService {
 
   /**
    * Clears the Clarity cookie and resets the session.
+   * Uses the legacy consent API as recommended for cookie erasure.
    */
   clear(): void {
     if (this.loaded && window.clarity) {
