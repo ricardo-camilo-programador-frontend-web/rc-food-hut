@@ -4,13 +4,12 @@ import { HeaderComponent } from "@/components/Header.component";
 import { FooterComponent } from "@/blocks/sections/footer.section";
 import { ImageComponent } from "@/components/Image.component";
 import { IntroWarningModalSection } from "@/blocks/IntroWarningModal.section";
-import { TrackingConsentComponent } from "@/blocks/sections/TrackingConsent.section";
 import { TranslatePipe } from "@/pipes/translate.pipe";
 
 @Component({
   selector: "app-main-layout",
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, ImageComponent, IntroWarningModalSection, TrackingConsentComponent, TranslatePipe],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, ImageComponent, IntroWarningModalSection, TranslatePipe],
   template: `
     <div class="min-h-screen flex flex-col overflow-x-hidden">
       <app-header></app-header>
@@ -29,7 +28,6 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
       </main>
 
       <intro-warning-modal></intro-warning-modal>
-      <tracking-consent></tracking-consent>
       <app-footer></app-footer>
     </div>
   `,
