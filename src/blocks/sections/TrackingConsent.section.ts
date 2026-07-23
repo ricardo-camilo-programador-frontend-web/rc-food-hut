@@ -1,24 +1,11 @@
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      PUBLIC_GOOGLE_TAG_MANAGER_ID: string;
-    }
-  }
-}
-
-declare global {
-  interface Window {
-    dataLayer: Record<string, unknown>[];
-  }
-}
-
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { env } from "@/configs/env";
 import { CommonModule } from "@angular/common";
 import {
   saveItemOnLocalStorage,
 } from "@/utils/localStorageHandler";
 import { TranslatePipe } from "@/pipes/translate.pipe";
+import { ClarityService } from "@/services/clarity.service";
 
 @Component({
   selector: "tracking-consent",
@@ -70,6 +57,8 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
 export class TrackingConsentComponent implements OnInit {
   private readonly CONSENT_KEY = "tracking-consent";
   private readonly HAS_CHOSEN_KEY = "has-chosen-tracking";
+  private readonly clarityService = inject(ClarityService);
+
   showModal = false;
 
   ngOnInit(): void {
@@ -82,7 +71,7 @@ export class TrackingConsentComponent implements OnInit {
     }
 
     if (savedConsent === "true") {
-      this.initializeClarity();
+      this.initAnalytics();
     }
   }
 
@@ -93,19 +82,15 @@ export class TrackingConsentComponent implements OnInit {
     saveItemOnLocalStorage(this.CONSENT_KEY, String(consent));
 
     if (consent) {
-      this.initializeClarity();
+      this.initAnalytics();
     }
   }
 
-  private initializeClarity(): void {
-    const gtmId = env.GTM_ID;
-
-    if (gtmId) {
-      window.dataLayer.push({
-        event: "gtm.js",
-        "gtm.start": new Date().getTime(),
-        "gtm.containerId": gtmId,
-      });
-    }
+  /**
+   * Initializes all analytics/tracking tools after user consent.
+   * Microsoft Clarity is loaded dynamically via ClarityService.
+   */
+  private initAnalytics(): void {
+    this.clarityService.init();
   }
 }
