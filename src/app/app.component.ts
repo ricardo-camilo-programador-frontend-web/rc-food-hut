@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MetaService } from '@/services/meta.service';
 import { RESTAURANT_STRUCTURED_DATA } from '@/constants/structured-data.constants';
+import { env } from '@/configs/env';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +23,8 @@ export class AppComponent {
     this.metaService.updateMetadata({
       title: 'Food Hut - Delicious Food Delivery',
       description: 'Order delicious food from your favorite restaurants. Fast delivery, amazing prices, and a wide variety of cuisines.',
-      url: 'https://food-hut-angular-chronicles-1.netlify.app/',
-      image: 'https://food-hut-angular-chronicles-1.netlify.app/assets/images/og-image.webp',
+      url: env.SITE_URL,
+      image: `${env.SITE_URL}assets/images/og-image.webp`,
       structuredData: { ...RESTAURANT_STRUCTURED_DATA },
     });
   }

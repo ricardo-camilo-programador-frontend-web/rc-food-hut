@@ -29,10 +29,7 @@ export class MetaService {
       this.meta.updateTag({ property: 'og:url', content: data.url });
       this.meta.updateTag({ name: 'twitter:url', content: data.url });
 
-      const link: HTMLLinkElement | null = this.document.querySelector('link[rel="canonical"]');
-      if (link) {
-        link.href = data.url;
-      }
+      this.setCanonicalLink(data.url);
     }
 
     this.meta.updateTag({ name: 'twitter:title', content: data.title });
@@ -40,6 +37,8 @@ export class MetaService {
 
     if (data.structuredData) {
       this.injectStructuredData(data.structuredData);
+    } else {
+      this.removeStructuredData();
     }
   }
 
@@ -56,5 +55,17 @@ export class MetaService {
   removeStructuredData(): void {
     const existingScripts = this.document.querySelectorAll('script[data-lighthouse-structured-data]');
     existingScripts.forEach((script: Element) => script.remove());
+  }
+
+  private setCanonicalLink(url: string): void {
+    let link: HTMLLinkElement | null = this.document.querySelector('link[rel="canonical"]');
+
+    if (!link) {
+      link = this.document.createElement('link');
+      link.rel = 'canonical';
+      this.document.head.appendChild(link);
+    }
+
+    link.href = url;
   }
 }

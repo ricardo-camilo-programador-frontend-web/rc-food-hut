@@ -1,10 +1,12 @@
+import { env } from '@/configs/env';
+
 export const RESTAURANT_STRUCTURED_DATA = {
   "@context": "https://schema.org",
   "@type": "Restaurant",
   "name": "Food Hut",
   "description": "Discover delicious meals crafted with passion. Order online for delivery or pickup from Food Hut.",
-  "url": "https://food-hut-angular-chronicles-1.netlify.app/",
-  "image": "https://food-hut-angular-chronicles-1.netlify.app/assets/images/og-image.webp",
+  "url": env.SITE_URL,
+  "image": `${env.SITE_URL}assets/images/og-image.webp`,
   "servesCuisine": ["American", "Fast Food", "Burgers", "Pizza"],
   "priceRange": "$$",
   "address": {

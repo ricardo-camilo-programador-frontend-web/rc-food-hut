@@ -2,6 +2,9 @@
 // To update values, set environment variables or edit scripts/generate-env.ts defaults.
 
 export const env = {
+  // Site
+  SITE_URL: 'https://food-hut-angular-chronicles-1.netlify.app/',
+
   // Portfolio
   PORTFOLIO_URL: 'https://ricardo-camilo-dev-frontend-web.netlify.app/',
 
