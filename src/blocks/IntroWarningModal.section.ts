@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { ModalComponent } from "@/components/Modal.component";
 import { CommonModule } from "@angular/common";
 import { saveItemOnLocalStorage, getItemFromLocalStorage } from "@/utils/localStorageHandler";
@@ -6,11 +6,11 @@ import { Router, RouterModule } from "@angular/router";
 import { env } from "@/configs/env";
 import { ImageComponent } from "@/components/Image.component";
 import { TranslatePipe } from "@/pipes/translate.pipe";
+import { ClarityService } from "@/services/clarity.service";
 
 @Component({
   selector: "intro-warning-modal",
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ModalComponent, CommonModule, RouterModule, ImageComponent, TranslatePipe],
   template: `
     <app-modal
@@ -141,39 +141,41 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
     </app-modal>
   `,
 })
-export class IntroWarningModalSection implements AfterViewInit {
+export class IntroWarningModalSection implements OnInit {
   linkedinUsername = "ricardo-camilo-programador-frontend-web-developer";
-  portfolioUrl = "https://ricardo-camilo-dev-frontend-web.netlify.app/";
+  portfolioUrl = env.PORTFOLIO_URL;
   figmaUsername = "@KamranAlime";
   figmaOriginalDesign = "1103820487891554272";
   analyticsEnabled = false;
   isOpen = false;
 
-  checkIfPageIsPrivacyPolicy() {
-    return this.router.url === "/privacy-policy";
-  }
+  private readonly clarityService = inject(ClarityService);
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     const savedAnalyticsPreference = getItemFromLocalStorage("analyticsEnabled");
-    
+
     if (savedAnalyticsPreference !== null) {
       this.analyticsEnabled = savedAnalyticsPreference === "true";
     } else {
       this.analyticsEnabled = true;
       saveItemOnLocalStorage("analyticsEnabled", "true");
     }
-    
+
     if (this.checkIfPageIsPrivacyPolicy()) {
       this.isOpen = false;
     } else {
       this.isOpen = true;
     }
-    
+
     if (this.analyticsEnabled) {
-      this.loadAnalyticsScript();
+      this.loadAnalytics();
     }
+  }
+
+  checkIfPageIsPrivacyPolicy(): boolean {
+    return this.router.url === "/privacy-policy";
   }
 
   closeModal(): void {
@@ -184,22 +186,28 @@ export class IntroWarningModalSection implements AfterViewInit {
     this.isOpen = true;
   }
 
-  ngAfterViewInit(): void {
-    if (!this.checkIfPageIsPrivacyPolicy()) {
-      this.loadAnalyticsScript();
-    }
-  }
-
   toggleAnalytics(): void {
     this.analyticsEnabled = !this.analyticsEnabled;
     saveItemOnLocalStorage("analyticsEnabled", String(this.analyticsEnabled));
-    
+
     if (this.analyticsEnabled) {
-      this.loadAnalyticsScript();
+      this.loadAnalytics();
+    } else {
+      this.clarityService.setConsent(false);
     }
   }
 
-  loadAnalyticsScript(): void {
+  /**
+   * Loads all analytics/tracking tools based on user consent.
+   * - Microsoft Clarity (session recordings, heatmaps)
+   * - counter.dev (visit counter)
+   */
+  loadAnalytics(): void {
+    this.clarityService.init();
+    this.loadCounterDev();
+  }
+
+  private loadCounterDev(): void {
     const counterId = env.COUNTER_DEV_ID;
     if (!counterId || document.querySelector(`script[data-id="${counterId}"]`)) {
       return;

@@ -36,4 +36,7 @@ export const env = {
 
   // Visit Counter (counter.dev)
   COUNTER_DEV_ID: 'f30df6f3-776d-4154-959d-0210ac8a8325',
+
+  // Microsoft Clarity
+  CLARITY_ID: 'pnbybb42sr',
 } as const;

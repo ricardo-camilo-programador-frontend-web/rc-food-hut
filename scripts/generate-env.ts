@@ -33,6 +33,7 @@ const defaults: Record<string, string> = {
   VITE_GA_MEASUREMENT_ID: 'G-DLRDXGG3V1',
   VITE_GTM_ID: 'GTM-5HWWCSZ4',
   VITE_COUNTER_DEV_ID: 'f30df6f3-776d-4154-959d-0210ac8a8325',
+  VITE_CLARITY_ID: 'pnbybb42sr',
 }
 
 function getEnv(key: string): string {
@@ -78,6 +79,9 @@ export const env = {
 
   // Visit Counter (counter.dev)
   COUNTER_DEV_ID: '${getEnv('VITE_COUNTER_DEV_ID')}',
+
+  // Microsoft Clarity
+  CLARITY_ID: '${getEnv('VITE_CLARITY_ID')}',
 } as const;
 `
 
