@@ -62,7 +62,7 @@ import type { NavigationItem } from "@/types/navigation.types";
       <!-- Navigation Items -->
       <div class="flex-1 overflow-y-auto">
         <ul class="flex flex-col divide-y divide-red-900/40">
-          @for (item of menuItems; track item.link) {
+          @for (item of menuItems; track $index) {
             <li>
               <a
                 [href]="item.link"

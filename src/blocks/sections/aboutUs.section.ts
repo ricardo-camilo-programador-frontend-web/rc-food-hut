@@ -112,7 +112,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
               <span class="text-amber-400">{{ 'aboutUs.heading3' | translate }}</span> {{ 'aboutUs.heading4' | translate }}
             </h2>
 
-            <p class="text-gray-400 mb-8">
+            <p class="text-gray-600 mb-8">
               {{ 'aboutUs.description' | translate }}
             </p>
 

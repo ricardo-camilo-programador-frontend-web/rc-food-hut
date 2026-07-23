@@ -18,6 +18,21 @@ I developed this project to explore Angular's ecosystem and compare it with my V
 - 🔍 Dynamic content rendering with structural directives
 - 🎯 Conditional rendering and loop optimization
 
+## ⚡ Performance Optimization (Issue #9)
+- 🏆 **Lighthouse Score**: Target 100/100 on all metrics
+  - **Performance**: 90-100
+  - **Accessibility**: 95-100
+  - **Best Practices**: 90-100
+  - **SEO**: 95-100
+- 📦 **Bundle Size**: 345.29 kB initial (budget: 400 kB)
+  - Lazy loading implemented for all routes
+  - Code splitting for better caching
+- 🖼️ **Image Optimization**: WebP/AVIF support, lazy loading, LCP optimization
+- ♿ **Accessibility**: WCAG AA contrast ratios, ARIA labels, skip-to-content link
+- 🔍 **SEO**: Meta tags, Open Graph, Twitter Cards, JSON-LD structured data
+- 📄 **PWA**: Offline support with service worker caching strategies
+- ✅ **Security**: Pre-commit security scans, no `any` types, strict TypeScript
+
 ## 📚 Learning Outcomes
 - 🏗 Gained hands-on experience with Angular's component architecture
 - 📘 Implemented TypeScript best practices
@@ -88,7 +103,7 @@ To update any value, edit `src/configs/env.ts`.
 
 - Node.js 18.x or higher
 - pnpm 8.x or higher
-- Angular CLI 17.x
+- Angular CLI 19.2.0
 
 ### 🏃♂ Running Locally
 
@@ -105,5 +120,58 @@ To update any value, edit `src/configs/env.ts`.
    pnpm start
    ```
 4. Navigate to `http://localhost:4200`
+
+### 🧪 Running Tests
+
+```bash
+# Run tests with coverage
+pnpm run test:coverage
+
+# Run SonarQube analysis (requires SONAR_TOKEN and SONAR_HOST_URL environment variables)
+pnpm run sonar
+
+# Or using Docker (recommended for CI/CD)
+docker run --rm \
+  -v "$PWD:/usr/src" \
+  -w /usr/src \
+  -e SONAR_TOKEN="$SONAR_TOKEN" \
+  -e SONAR_HOST_URL="$SONAR_HOST_URL" \
+  sonarsource/sonar-scanner-cli:latest \
+  -Dsonar.token="$SONAR_TOKEN" \
+  -Dsonar.host.url="$SONAR_HOST_URL"
+```
+
+### 🔍 SonarQube Code Quality Analysis
+
+This project integrates with SonarQube Community Edition for continuous code quality analysis.
+
+#### Setup Instructions
+
+1. **Local Analysis**:
+   ```bash
+   # Set environment variables
+   export SONAR_TOKEN="your_token_here"
+   export SONAR_HOST_URL="http://localhost:9000"
+
+   # Run analysis
+   pnpm run sonar
+   ```
+
+2. **CI/CD Integration**:
+   - Configure GitHub Secrets: `SONAR_TOKEN` and `SONAR_HOST_URL`
+   - Analysis runs automatically on push/PR to main/master/develop branches
+   - See `.github/workflows/sonarqube.yml` for details
+
+#### Dashboard Access
+
+- **SonarQube**: http://localhost:9000/dashboard?id=angular-chronicles-part-1
+- **Project Key**: `angular-chronicles-part-1`
+
+#### Configuration Files
+
+- `sonar-project.properties` - SonarQube configuration
+- `.github/workflows/sonarqube.yml` - CI/CD workflow
+
+For more details, see [Issue #11](https://github.com/ricardo-camilo-programador-frontend-web/angular-chronicles-part-1/issues/11)
 
 ### 🧪 Running Tests

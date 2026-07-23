@@ -21,7 +21,7 @@ import type { NavigationItem } from "@/types/navigation.types";
         </div>
 
         <nav class="hidden lg:flex items-center space-x-8">
-          @for (item of menuItems; track item.link) {
+          @for (item of menuItems; track $index) {
             <a
               [href]="item.link"
               [attr.aria-label]="item.ariaLabel! | translate"

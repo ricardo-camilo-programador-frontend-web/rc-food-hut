@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 export class SelectivePreloadingStrategyService implements PreloadingStrategy {
   preloadedModules: string[] = [];
 
-  preload(route: Route, load: () => Observable<any>): Observable<any> {
+  preload(route: Route, load: () => Observable<unknown>): Observable<unknown> {
     if (route.canMatch === undefined && route.data?.['preload'] && route.path != null) {
       // add the route path to the preloaded module array
       this.preloadedModules.push(route.path);

@@ -11,6 +11,8 @@ import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
       [width]="width"
       [height]="height"
       [loading]="loading"
+      [attr.fetchpriority]="fetchpriority"
+      decoding="async"
       [class]="className"
     >
   `
@@ -22,5 +24,6 @@ export class ImageComponent {
   @Input() width: string = '';
   @Input() height: string = '';
   @Input() loading: string = 'lazy';
+  @Input() fetchpriority: 'high' | 'low' | 'auto' = 'auto';
   @Input() className: string = '';
 }

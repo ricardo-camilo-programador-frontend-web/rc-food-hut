@@ -11,6 +11,8 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
     <dialog
       #modalRef
       [id]="id"
+      role="dialog"
+      aria-modal="true"
       [class]="
         'fixed inset-0 z-50 bg-black/20 text-black p-2 md:p-6 rounded-lg border border-white/20 backdrop:bg-black/50 open:animate-fade-in w-screen min-h-screen ' +
         className
@@ -68,13 +70,30 @@ export class ModalComponent {
 
   @ViewChild('modalRef') modalRef!: ElementRef;
 
+  private previouslyFocusedElement: HTMLElement | null = null;
+
   open() {
     this.isOpen = true;
+    this.previouslyFocusedElement = document.activeElement as HTMLElement;
+    const focusableElements = this.modalRef.nativeElement.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusableElements.length > 0) {
+      (focusableElements[0] as HTMLElement).focus();
+    }
   }
 
   close() {
     this.isOpen = false;
+    this.restoreFocus();
     this.onClose();
+  }
+
+  private restoreFocus(): void {
+    if (this.previouslyFocusedElement) {
+      this.previouslyFocusedElement.focus();
+      this.previouslyFocusedElement = null;
+    }
   }
 
   onClose() {

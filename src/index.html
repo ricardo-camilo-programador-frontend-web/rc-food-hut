@@ -17,12 +17,18 @@
     <meta property="og:description" content="Order delicious food from your favorite restaurants. Fast delivery and amazing prices.">
     <meta property="og:site_name" content="Food Hut">
     <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://food-hut-angular-chronicles-1.netlify.app/assets/images/og-image.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Food Hut - Delicious Meals Delivered">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://food-hut-angular-chronicles-1.netlify.app/">
     <meta name="twitter:title" content="Food Hut - Delicious Food Delivery">
     <meta name="twitter:description" content="Order delicious food from your favorite restaurants. Fast delivery and amazing prices.">
+    <meta name="twitter:image" content="https://food-hut-angular-chronicles-1.netlify.app/assets/images/og-image.webp">
+    <meta name="twitter:image:alt" content="Food Hut - Delicious Meals Delivered">
     
     <!-- Viewport -->
     <base href="/" />
@@ -55,6 +61,19 @@
       href="manifest.webmanifest"
       crossorigin="use-credentials"
     />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Food Hut",
+      "description": "Discover delicious meals crafted with passion. Order online for delivery or pickup from Food Hut.",
+      "url": "https://food-hut-angular-chronicles-1.netlify.app/",
+      "servesCuisine": ["American", "Fast Food", "Burgers", "Pizza"],
+      "priceRange": "$$"
+    }
+    </script>
   </head>
   <body>
     <app-root></app-root>

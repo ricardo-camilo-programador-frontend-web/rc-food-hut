@@ -17,6 +17,7 @@ const outFile = resolve(__dirname, '..', 'src', 'configs', 'env.ts')
 
 // Hardcoded defaults for local development (--local flag or missing vars)
 const defaults: Record<string, string> = {
+  VITE_SITE_URL: 'https://food-hut-angular-chronicles-1.netlify.app/',
   VITE_PORTFOLIO_URL: 'https://ricardo-camilo-dev-frontend-web.netlify.app/',
   VITE_GITHUB_URL: 'https://github.com/ricardo-camilo-programador-frontend-web',
   VITE_LINKEDIN_URL: 'https://www.linkedin.com/in/ricardo-camilo-programador-frontend-web-developer/',
@@ -43,6 +44,9 @@ function generateEnvFile(): void {
 // To update values, set environment variables or edit scripts/generate-env.ts defaults.
 
 export const env = {
+  // Site
+  SITE_URL: '${getEnv('VITE_SITE_URL')}',
+
   // Portfolio
   PORTFOLIO_URL: '${getEnv('VITE_PORTFOLIO_URL')}',
 
