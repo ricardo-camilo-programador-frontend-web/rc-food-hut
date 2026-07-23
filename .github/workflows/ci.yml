@@ -8,22 +8,106 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    name: Build do Projeto
+    runs-on: self-hosted
+    timeout-minutes: 15
+    env:
+      VITE_PORTFOLIO_URL: ""
+      VITE_GITHUB_URL: ""
+      VITE_LINKEDIN_URL: ""
+      VITE_X_URL: ""
+      VITE_INSTAGRAM_URL: ""
+      VITE_YOUTUBE_URL: ""
+      VITE_FACEBOOK_URL: ""
+      VITE_99FREELAS_URL: ""
+      VITE_WORKANA_URL: ""
+      VITE_BUYMEACOFFEE_URL: ""
+      VITE_FIGMA_URL: ""
+      VITE_CONTACT_EMAIL: ""
+      VITE_GA_MEASUREMENT_ID: ""
+      VITE_GTM_ID: ""
+      VITE_COUNTER_DEV_ID: ""
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup PATH
+        run: echo "/usr/local/bin" >> $GITHUB_PATH
+      - name: Cache pnpm store
+        uses: actions/cache@v3
         with:
-          node-version: '20'
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+      - name: Instalar dependencias
+        run: pnpm install --ignore-scripts
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - Name: Build
+      - name: Build do projeto
         run: pnpm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-dist
+          path: dist/
+          retention-days: 7
+
+  security:
+    name: Auditoria de Seguranca
+    runs-on: self-hosted
+    timeout-minutes: 10
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PATH
+        run: echo "/usr/local/bin" >> $GITHUB_PATH
+      - name: Cache pnpm store
+        uses: actions/cache@v3
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Instalar dependencias
+        run: pnpm install --ignore-scripts
+
+      - name: Auditoria de vulnerabilidades
+        shell: bash
+        run: |
+          set -o pipefail
+          LOG_FILE="$(mktemp)"
+
+          pnpm audit --audit-level moderate 2>&1 | tee "$LOG_FILE"
+          status=${PIPESTATUS[0]}
+
+          if [ "$status" -eq 0 ]; then
+            exit 0
+          fi
+
+          if grep -q "ERR_PNPM_AUDIT_BAD_RESPONSE" "$LOG_FILE" && grep -Eq "responded with 5[0-9]{2}([^0-9]|$)|error \\(5[0-9]{2}\\)" "$LOG_FILE"; then
+            echo "::warning::pnpm audit falhou por erro 5xx do endpoint de auditoria da npm."
+            exit 0
+          fi
+
+          exit "$status"
+
+  sonar:
+    name: Analise SonarQube
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PATH
+        run: echo "/usr/local/bin" >> $GITHUB_PATH
+      - name: Cache pnpm store
+        uses: actions/cache@v3
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Instalar dependencias
+        run: pnpm install --ignore-scripts
+
+      - name: Run SonarScanner
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: /opt/sonar-scanner/bin/sonar-scanner
