@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app/app-routing.module';
 import { isDevMode } from '@angular/core';
 import { provideServiceWorker } from '@angular/service-worker';
+import { AnalyticsService } from '@/services/analytics.service';
 
 bootstrapApplication(AppComponent, {providers: [
   provideProtractorTestingSupport(),
@@ -12,6 +13,7 @@ bootstrapApplication(AppComponent, {providers: [
     enabled: !isDevMode(),
     registrationStrategy: 'registerWhenStable:3000'
   })
-]}).catch((err) =>
+]}).then((appRef) => appRef.injector.get(AnalyticsService).init())
+  .catch((err) =>
   console.error(err),
 );

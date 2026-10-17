@@ -7,6 +7,7 @@ import { env } from "@/configs/env";
 import { ImageComponent } from "@/components/Image.component";
 import { TranslatePipe } from "@/pipes/translate.pipe";
 import { ClarityService } from "@/services/clarity.service";
+import { AnalyticsService } from "@/services/analytics.service";
 
 @Component({
   selector: "intro-warning-modal",
@@ -150,6 +151,7 @@ export class IntroWarningModalSection implements OnInit {
   isOpen = false;
 
   private readonly clarityService = inject(ClarityService);
+  private readonly analyticsService = inject(AnalyticsService);
 
   constructor(private router: Router) {}
 
@@ -199,26 +201,10 @@ export class IntroWarningModalSection implements OnInit {
 
   /**
    * Loads all analytics/tracking tools based on user consent.
-   * - Microsoft Clarity (session recordings, heatmaps)
-   * - counter.dev (visit counter)
+   * Delegates to AnalyticsService (GA4/GTM/Clarity/counter.dev, consent-aware).
    */
   loadAnalytics(): void {
-    this.clarityService.init();
-    this.loadCounterDev();
-  }
-
-  private loadCounterDev(): void {
-    const counterId = env.COUNTER_DEV_ID;
-    if (!counterId || document.querySelector(`script[data-id="${counterId}"]`)) {
-      return;
-    }
-    const script = document.createElement('script');
-    script.src = 'https://cdn.counter.dev/script.js';
-    script.dataset['id'] = counterId;
-    script.dataset['utcoffset'] = '-3';
-    script.async = true;
-    script.onerror = () => script.remove();
-    document.body.appendChild(script);
+    this.analyticsService.init();
   }
 
   getToggleButtonClasses(): string {

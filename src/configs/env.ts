@@ -30,13 +30,18 @@ export const env = {
   // Contact
   CONTACT_EMAIL: 'ricardo.camilo.dev@gmail.com',
 
-  // Analytics
-  GA_MEASUREMENT_ID: 'G-DLRDXGG3V1',
-  GTM_ID: 'GTM-5HWWCSZ4',
-
-  // Visit Counter (counter.dev)
-  COUNTER_DEV_ID: 'f30df6f3-776d-4154-959d-0210ac8a8325',
-
-  // Microsoft Clarity
-  CLARITY_ID: 'pnbybb42sr',
+  // Analytics (resolved by src/lib/analytics/config.ts at build time)
+  ANALYTICS: {
+  "enabled": true,
+  "clarityId": "yyrpw7vjoz",
+  "ga4Id": "G-MSX663TSDY",
+  "gtmId": "",
+  "gtmEnabled": false,
+  "gtmGa4Id": "",
+  "counterId": "f30df6f3-776d-4154-959d-0210ac8a8325",
+  "counterUtcOffset": "-3",
+  "loadGtm": false,
+  "loadGtag": true,
+  "loadClarity": true
+},
 } as const;

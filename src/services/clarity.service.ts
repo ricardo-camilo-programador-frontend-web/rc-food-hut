@@ -26,9 +26,9 @@ export class ClarityService {
   init(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     if (this.loaded) return;
-    if (!env.CLARITY_ID) return;
+    if (!env.ANALYTICS.clarityId) return;
 
-    const projectId = env.CLARITY_ID;
+    const projectId = env.ANALYTICS.clarityId;
     const w = window as Window;
 
     // Clarity snippet — official pattern
