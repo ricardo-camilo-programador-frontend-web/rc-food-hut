@@ -1,15 +1,17 @@
-import { Component, AfterViewInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { ModalComponent } from "@/components/Modal.component";
 import { CommonModule } from "@angular/common";
 import { saveItemOnLocalStorage, getItemFromLocalStorage } from "@/utils/localStorageHandler";
 import { Router, RouterModule } from "@angular/router";
+import { env } from "@/configs/env";
 import { ImageComponent } from "@/components/Image.component";
 import { TranslatePipe } from "@/pipes/translate.pipe";
+import { ClarityService } from "@/services/clarity.service";
+import { AnalyticsService } from "@/services/analytics.service";
 
 @Component({
   selector: "intro-warning-modal",
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ModalComponent, CommonModule, RouterModule, ImageComponent, TranslatePipe],
   template: `
     <app-modal
@@ -140,39 +142,42 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
     </app-modal>
   `,
 })
-export class IntroWarningModalSection implements AfterViewInit {
+export class IntroWarningModalSection implements OnInit {
   linkedinUsername = "ricardo-camilo-programador-frontend-web-developer";
-  portfolioUrl = "https://ricardo-camilo-dev-frontend-web.netlify.app/";
+  portfolioUrl = env.PORTFOLIO_URL;
   figmaUsername = "@KamranAlime";
   figmaOriginalDesign = "1103820487891554272";
   analyticsEnabled = false;
   isOpen = false;
 
-  checkIfPageIsPrivacyPolicy() {
-    return this.router.url === "/privacy-policy";
-  }
+  private readonly clarityService = inject(ClarityService);
+  private readonly analyticsService = inject(AnalyticsService);
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     const savedAnalyticsPreference = getItemFromLocalStorage("analyticsEnabled");
-    
+
     if (savedAnalyticsPreference !== null) {
       this.analyticsEnabled = savedAnalyticsPreference === "true";
     } else {
       this.analyticsEnabled = true;
       saveItemOnLocalStorage("analyticsEnabled", "true");
     }
-    
+
     if (this.checkIfPageIsPrivacyPolicy()) {
       this.isOpen = false;
     } else {
       this.isOpen = true;
     }
-    
+
     if (this.analyticsEnabled) {
-      this.loadAnalyticsScript();
+      this.loadAnalytics();
     }
+  }
+
+  checkIfPageIsPrivacyPolicy(): boolean {
+    return this.router.url === "/privacy-policy";
   }
 
   closeModal(): void {
@@ -183,31 +188,23 @@ export class IntroWarningModalSection implements AfterViewInit {
     this.isOpen = true;
   }
 
-  ngAfterViewInit(): void {
-    if (!this.checkIfPageIsPrivacyPolicy()) {
-      this.loadAnalyticsScript();
-    }
-  }
-
   toggleAnalytics(): void {
     this.analyticsEnabled = !this.analyticsEnabled;
     saveItemOnLocalStorage("analyticsEnabled", String(this.analyticsEnabled));
-    
+
     if (this.analyticsEnabled) {
-      this.loadAnalyticsScript();
+      this.loadAnalytics();
+    } else {
+      this.clarityService.setConsent(false);
     }
   }
 
-  loadAnalyticsScript(): void {
-    if (!document.querySelector('script[data-id="f30df6f3-776d-4154-959d-0210ac8a8325"]')) {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.counter.dev/script.js';
-      script.dataset['id'] = 'f30df6f3-776d-4154-959d-0210ac8a8325';
-      script.dataset['utcoffset'] = '-3';
-      script.async = true;
-      script.onerror = () => script.remove();
-      document.body.appendChild(script);
-    }
+  /**
+   * Loads all analytics/tracking tools based on user consent.
+   * Delegates to AnalyticsService (GA4/GTM/Clarity/counter.dev, consent-aware).
+   */
+  loadAnalytics(): void {
+    this.analyticsService.init();
   }
 
   getToggleButtonClasses(): string {

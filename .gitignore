@@ -12,3 +12,4 @@ dist/workflow/
 
 # Test coverage
 coverage/
+.netlify/
