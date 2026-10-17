@@ -2,9 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from '@/app/layouts/MainLayout.component';
 import { SelectivePreloadingStrategyService } from '@/app/selective-preloading-strategy.service';
-import { HomeComponent } from '@/app/home/home.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { PrivacyComponent } from '@/app/privacy-policy/privacy.component';
 
 export const routes: Routes = [
   {
@@ -13,7 +10,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent,
+        loadComponent: () => import('@/app/home/home.component').then(m => m.HomeComponent),
       },
     ]
   },
@@ -23,14 +20,14 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: PrivacyComponent,
+        loadComponent: () => import('@/app/privacy-policy/privacy.component').then(m => m.PrivacyComponent),
       }
     ]
   }
 ];
 
 @NgModule({
-  imports: [BrowserModule, RouterModule.forRoot(routes, {
+  imports: [RouterModule.forRoot(routes, {
     enableTracing: false,
     preloadingStrategy: SelectivePreloadingStrategyService,
   })],

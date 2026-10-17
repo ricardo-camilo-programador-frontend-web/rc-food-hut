@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { env } from "@/configs/env";
 import { ImageComponent } from "@/components/Image.component";
 import { ButtonComponent } from "@/components/Button.component";
 import { getRandomLinkForRedirection } from "@/utils/getRandomLinkForRedirection";
@@ -168,7 +169,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
             </p>
           </div>
 
-          <buy-me-coffee username="ricardo.camilo.frontend"></buy-me-coffee>
+          <buy-me-coffee [username]="buyMeCoffeeUsername"></buy-me-coffee>
 
           <div class="flex flex-col sm:flex-row gap-5 items-center justify-center">
             <app-input-text
@@ -205,6 +206,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
 export class FooterComponent implements OnInit {
   currentYear = new Date().getFullYear();
   redirectLinks: string[] = [];
+  buyMeCoffeeUsername = env.BUYMEACOFFEE_USERNAME;
 
   ngOnInit(): void {
     this.redirectLinks = Array.from({ length: 10 }, () => getRandomLinkForRedirection());

@@ -21,6 +21,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
       ></app-image>
 
       <main
+        id="main-content"
         class="grid grid-cols-1 w-full mx-auto"
       >
         <router-outlet></router-outlet>
