@@ -40,22 +40,28 @@ export class AnalyticsService {
   }
 
   private loadGtag(): void {
+    if (!this.analytics.ga4Id) return;
     const w = window as Window;
     w.dataLayer = w.dataLayer || [];
-    w.gtag = function gtag(...args: unknown[]): void {
-      w.dataLayer?.push(args);
-    };
+    // eslint-disable-next-line prefer-rest-params
+    const gtag: (...args: unknown[]) => void = (w.gtag = function gtag(): void {
+      // eslint-disable-next-line prefer-rest-params
+      w.dataLayer?.push(arguments);
+    });
+    gtag('js', new Date());
+    gtag('config', this.analytics.ga4Id);
+
     const script = this.document.createElement('script');
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${this.analytics.ga4Id}`;
     this.document.head.appendChild(script);
-    w.gtag('config', this.analytics.ga4Id);
   }
 
   private loadGtm(): void {
+    if (!this.analytics.gtmId) return;
     const w = window as Window;
     w.dataLayer = w.dataLayer || [];
-    w.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+    w.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
     const script = this.document.createElement('script');
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtm.js?id=${this.analytics.gtmId}`;
