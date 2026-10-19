@@ -289,3 +289,6 @@ Saída resumida:
 - `pnpm.overrides.tinypool = ^2.1.2`: zera as 2 críticas trazidas pelo vitest 3 (tinypool 1.x).
 - `src/test-setup.ts`: stub de IntersectionObserver para o `@defer (on viewport)` no jsdom.
 - `pnpm audit` final: 0 críticas, 2 altas sem correção publicada upstream (node-forge via @sonar/scan; braces 3.0.3 via webpack-dev-server/chokidar), 6 moderadas, 2 baixas.
+- Rodada extra do audit: overrides de `@babel/core`, `postcss-selector-parser` (6 e 7), `vitest`/`@vitest/mocker` 4.1.x e remoção do peer opcional `protractor` (que trazia `request`/`tough-cookie`). Resultado: **1 moderada e 2 altas**, todas sem correção possível hoje: `node-forge` (via @sonar/scan) e `braces@3.0.3` (via webpack-dev-server/chokidar) não têm versão corrigida publicada, e `postcss-selector-parser@6` vem do tailwind 3 (a correção só existe na 7.x).
+- CI: o runner self-hosted `nobara-angular-1` está offline e os jobs ficavam na fila até serem cancelados em 24 h. O `ci.yml` passou a usar `ubuntu-latest` por padrão; para voltar ao runner próprio, defina a variável de repositório `CI_RUNS_ON=self-hosted`.
+- Netlify: os deploy previews só são gerados para PRs contra a `main`. Por isso, o preview da PR #23 foi publicado manualmente como draft (`netlify deploy --alias pr-23`): https://pr-23--food-hut-angular-chronicles-1.netlify.app
