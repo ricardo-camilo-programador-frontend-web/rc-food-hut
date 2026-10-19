@@ -284,3 +284,8 @@ Saída resumida:
 - `pnpm run lint` (`ng lint`): Exit code 0, 0 erros (resolvidos `@angular-eslint/prefer-inject` em `IntroWarningModal.section.ts`, `@typescript-eslint/no-inferrable-types` em `Image.component.ts` e diretiva não utilizada em `analytics.service.ts`). 7 warnings de acessibilidade/convenção tolerados.
 - `pnpm test` (`vitest run`): Exit code 0, 4 arquivos de teste e 12/12 testes aprovados (validação de `dataLayer` como objeto `Arguments` com 'js'/'config' e compatibilidade com o runtime do GA4).
 - `pnpm run build` (`npx tsx scripts/generate-env.ts && ng build`): Exit code 0, bundle gerado com sucesso em `dist/first-app` (Initial total: 345.55 kB, 95.78 kB transfer).
+
+## Ajustes finais (integração)
+- `pnpm.overrides.tinypool = ^2.1.2`: zera as 2 críticas trazidas pelo vitest 3 (tinypool 1.x).
+- `src/test-setup.ts`: stub de IntersectionObserver para o `@defer (on viewport)` no jsdom.
+- `pnpm audit` final: 0 críticas, 2 altas sem correção publicada upstream (node-forge via @sonar/scan; braces 3.0.3 via webpack-dev-server/chokidar), 6 moderadas, 2 baixas.
