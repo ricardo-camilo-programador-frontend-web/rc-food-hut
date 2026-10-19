@@ -25,7 +25,7 @@ import type { NavigationItem } from "@/types/navigation.types";
             <a
               [href]="item.link"
               [attr.aria-label]="item.ariaLabel! | translate"
-              class="text-gray-700 hover:text-red-500 transition-colors font-medium text-base"
+              class="text-gray-700 hover:text-red-600 transition-colors font-medium text-base"
             >
               {{ item.label | translate }}
             </a>
@@ -42,7 +42,7 @@ import type { NavigationItem } from "@/types/navigation.types";
         <app-language-selector></app-language-selector>
         <button
           (click)="toggleMobileMenu()"
-          class="p-3 z-[31] text-gray-700 hover:text-red-500 transition-colors rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-red-500"
+          class="p-3 z-[31] text-gray-700 hover:text-red-600 transition-colors rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-red-600"
           aria-label="Open navigation menu"
           [attr.aria-expanded]="isMobileMenuOpen"
           [attr.aria-controls]="'mobile-menu'"

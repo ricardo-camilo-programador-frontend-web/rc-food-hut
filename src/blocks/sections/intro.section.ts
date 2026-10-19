@@ -79,10 +79,10 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
           class="text-3xl lg:text-5xl font-bold mb-6 max-w-[400px] lg:max-w-none relative"
         >
           <span>{{ 'intro.headingPart1' | translate }}</span>
-          <span class="text-red-500"> {{ 'intro.headingAccent' | translate }}</span>
+          <span class="text-red-600"> {{ 'intro.headingAccent' | translate }}</span>
           <br class="lg:hidden" />
           <br />
-          <span class="text-yellow-500">{{ 'intro.headingPart2' | translate }}</span>
+          <span class="text-amber-700">{{ 'intro.headingPart2' | translate }}</span>
           <app-image
             [src]="'assets/svg/redBrushStroke.svg'"
             [alt]="'alt.redBrushStroke' | translate"
@@ -99,7 +99,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
         >
           <app-input-text [placeholder]="'intro.searchPlaceholder' | translate" class="w-full lg:w-96">
             <button
-              class="absolute right-2 top-[1.46rem] -translate-y-1/2 p-2 bg-yellow-400 rounded-full hover:bg-yellow-500 transition-colors"
+              class="absolute right-2 top-[1.46rem] -translate-y-1/2 p-2 bg-amber-600 rounded-full hover:bg-amber-700 transition-colors"
             >
               <span class="sr-only">{{ 'intro.searchSrOnly' | translate }}</span>
               <app-image
@@ -118,7 +118,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
 
           <app-button
             [className]="
-              'flex flex-row-reverse items-center justify-center gap-2 text-gray-700 hover:bg-gray-100 hover:text-yellow-500 h-12 truncate'
+              'flex flex-row-reverse items-center justify-center gap-2 text-gray-700 hover:bg-gray-100 hover:text-amber-700 h-12 truncate'
             "
             [title]="'intro.watchVideo' | translate"
             [label]="'intro.watchVideo' | translate"
@@ -167,8 +167,11 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
         >
           <div class="z-10 max-h-[300px] lg:max-h-[500px]">
             <app-image
-              [src]="'/assets/images/happy-customer.webp'"
+              [src]="'assets/images/happy-customer.webp'"
               [alt]="'alt.happyCustomer' | translate"
+              [width]="454"
+              [height]="600"
+              [priority]="true"
               [className]="
                 'w-full h-auto object-contain max-h-[300px] lg:max-h-[500px] rounded-b-full'
               "
@@ -186,6 +189,9 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
           <app-image
             [src]="'assets/images/grilled-chicken-plate.webp'"
             [alt]="'alt.grilledChickenPlate' | translate"
+            [width]="266"
+            [height]="266"
+            loading="lazy"
             [className]="
               'w-[5rem] lg:w-[10rem] mx-auto absolute bottom-[2rem] -right-9 rotate-16 z-[50]'
             "
@@ -194,6 +200,9 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
           <app-image
             [src]="'assets/images/salmon-salad-plate.webp'"
             [alt]="'alt.salmonSaladPlate' | translate"
+            [width]="356"
+            [height]="324"
+            loading="lazy"
             [className]="
               'w-[5rem] lg:w-[10rem] mx-auto absolute -bottom-[3rem] lg:-bottom-[5rem] right-[2rem] lg:right-[5rem] rotate-16 z-[50]'
             "
@@ -202,6 +211,9 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
           <app-image
             [src]="'assets/images/grilled-salmon-vegetables.webp'"
             [alt]="'alt.grilledSalmonVegetables' | translate"
+            [width]="306"
+            [height]="304"
+            loading="lazy"
             [className]="
               'w-[5rem] lg:w-[10rem] mx-auto absolute -bottom-[4rem] lg:-bottom-[5rem] left-[3.5rem] lg:left-[5rem] rotate-16 z-[50]'
             "
@@ -210,6 +222,9 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
           <app-image
             [src]="'assets/images/buddha-bowl-sauce.webp'"
             [alt]="'alt.buddhaBowlSauce' | translate"
+            [width]="342"
+            [height]="332"
+            loading="lazy"
             [className]="
               'w-[5rem] lg:w-[10rem] mx-auto absolute bottom-[1rem] -left-[2rem] lg:-left-[5rem] rotate-16 z-[50]'
             "

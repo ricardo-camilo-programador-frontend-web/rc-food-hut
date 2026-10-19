@@ -124,3 +124,100 @@ chunk-X23LD2HD.js     | privacy-component |   9.00 kB |                 2.03 kB
 Application bundle generation complete.
 Output location: /workspace/analise-projetos/repos/rc-food-hut-headers/dist/first-app
 ```
+
+---
+
+## HANDOFF — perf + a11y (#22)
+Repo rc-food-hut (Angular 19, pnpm 9, builder @angular/build:application). Issue #22. Base: develop. Faça SOMENTE a sua parte, commits locais na branch atual (formato `:emoji: type(22_rc-food-hut_<desc>): ...`, pt-BR), NÃO faça push, NÃO mexa em outras worktrees. Nunca commite segredos nem .env. Mantenha Clarity yyrpw7vjoz, GA4 G-MSX663TSDY e counter.dev funcionando (src/lib/analytics/config.ts, src/services/analytics.service.ts). Antes de mudar código que já funciona, garanta um teste/verificação de comportamento (gate). Ao terminar, rode a verificação indicada e escreva o resultado (comandos + saída resumida) no fim deste HANDOFF.md, numa seção "## Resultado".
+
+Tarefa: o LCP mobile está em 25.7 s (Lighthouse perf 54), e o contraste falha no Lighthouse (a11y 85). Foco:
+1. `src/assets/gif/food-hut.gif` (5.6 MB): veja onde é usado (templates/css/README). Se a página usa, converta para vídeo (mp4/webm via ffmpeg, se disponível) ou WebP animado, ou remova do bundle de assets se não for usado no app.
+2. Imagens grandes em `src/assets/images`: redimensione/recomprima (cwebp/sharp, se houver) para o tamanho exibido. Use `NgOptimizedImage` (`ngSrc`, width/height) com `priority` na imagem do hero/LCP e `loading="lazy"` nas demais.
+3. JS inicial: lazy load das rotas (`loadComponent`) e `@defer` para seções abaixo da dobra; carregue a fonte do Google sem bloquear.
+4. Contraste: ajuste as cores de texto/botões com contraste baixo (ex.: text-gray-400 sobre branco, branco sobre vermelho-claro) para WCAG AA (>= 4.5:1), sem mudar o visual de forma drástica.
+Verificação: `pnpm install && npx tsc -p tsconfig.app.json --noEmit && pnpm run build` e relate os tamanhos do bundle inicial antes/depois (saída do ng build).
+
+### Resultado
+
+### Comandos de Verificação
+```bash
+npx tsx scripts/behavior-gate.ts
+npx tsc -p tsconfig.app.json --noEmit
+pnpm run build
+```
+
+### Saída Resumida dos Gates
+- `scripts/behavior-gate.ts`: PASSED (Clarity `yyrpw7vjoz`, GA4 `G-MSX663TSDY`, counter.dev `f30df6f3-776d-4154-959d-0210ac8a8325` intactos e validados).
+- `npx tsc -p tsconfig.app.json --noEmit`: 0 erros.
+- `ng build`: compilação concluída com sucesso em 3.0s.
+
+### Comparativo de Bundle Inicial (ng build)
+
+| Métrica | Antes | Depois | Redução |
+|---|---|---|---|
+| **Initial Total (Raw)** | 390.08 kB | 335.31 kB | **-54.77 kB (-14.0%)** |
+| **Initial Transfer Size** | 108.43 kB | 92.99 kB | **-15.44 kB (-14.2%)** |
+| **main.js (Raw)** | 113.66 kB | 9.23 kB | **-104.43 kB (-91.9%)** |
+| **main.js (Transfer)** | 29.21 kB | 3.08 kB | **-26.13 kB (-89.5%)** |
+
+#### Chunks Iniciais Antes:
+```
+Initial chunk files   | Names             |  Raw size | Estimated transfer size
+chunk-VGYB7QG6.js     | -                 | 183.99 kB |                54.50 kB
+main-4SO6I4Z6.js      | main              | 113.66 kB |                29.21 kB
+polyfills-SC4UBBZS.js | polyfills         |  34.52 kB |                11.28 kB
+styles-CLZAHTR5.css   | styles            |  33.94 kB |                 5.93 kB
+chunk-CFGBVKI7.js     | -                 |  23.96 kB |                 7.50 kB
+                      | Initial total     | 390.08 kB |               108.43 kB
+```
+
+#### Chunks Iniciais Depois:
+```
+Initial chunk files   | Names                 |  Raw size | Estimated transfer size
+chunk-SY72ENB6.js     | -                     | 163.55 kB |                48.02 kB
+chunk-UHVOJ3MZ.js     | -                     |  78.08 kB |                19.45 kB
+polyfills-SC4UBBZS.js | polyfills             |  34.52 kB |                11.28 kB
+styles-K42OG6FV.css   | styles                |  33.49 kB |                 5.89 kB
+chunk-FRS5KH76.js     | -                     |  15.32 kB |                 4.73 kB
+main-CZA24KW6.js      | main                  |   9.23 kB |                 3.08 kB
+chunk-GPAXIWZ2.js     | -                     |   1.12 kB |               548 bytes
+                      | Initial total         | 335.31 kB |                92.99 kB
+```
+
+#### Chunks Lazy Gerados (@defer e loadComponent):
+```
+Lazy chunk files      | Names                 |  Raw size | Estimated transfer size
+chunk-3ZXXBIF3.js     | -                     |  32.99 kB |                10.23 kB
+chunk-OKRLRIXT.js     | MainLayout-component  |  27.05 kB |                 7.75 kB
+chunk-ZI274H2A.js     | home-component        |  13.38 kB |                 3.77 kB
+chunk-JYF7FB2C.js     | privacy-component     |   9.03 kB |                 2.05 kB
+chunk-HZKKPZFD.js     | menu-section          |   6.47 kB |                 1.85 kB
+chunk-JFMAYLUQ.js     | -                     |   6.05 kB |                 2.07 kB
+chunk-P76I66QJ.js     | aboutUs-section       |   5.99 kB |                 1.95 kB
+chunk-S2QXKSBO.js     | app-section           |   4.10 kB |                 1.48 kB
+chunk-35OXOYPW.js     | specialOffers-section |   3.86 kB |                 1.26 kB
+chunk-43IS5I3E.js     | -                     |   3.80 kB |                 1.45 kB
+chunk-M5M7M2BT.js     | -                     |   1.72 kB |               698 bytes
+chunk-XVZ7LIKH.js     | -                     | 802 bytes |               802 bytes
+chunk-PTCQBJVR.js     | -                     | 169 bytes |               169 bytes
+```
+
+### Otimização de Assets e Imagens
+1. `src/assets/gif/food-hut.gif` (5.62 MB): não utilizado no app, removido do bundle de assets (-5.62 MB).
+2. `src/assets/images`:
+   - Peso total anterior: **7.91 MB**
+   - Peso total atual: **0.84 MB** (**-89.4% / economia de 7.07 MB**)
+   - `black-transparent-background.webp`: de 1986.9 kB para 262.3 kB
+   - `chef-presenting-app.webp`: de 1263.8 kB para 19.1 kB
+   - `vintage-kitchen-display.webp`: de 1207.3 kB para 27.9 kB
+   - `happy-customer.webp` (LCP hero): de 156.1 kB para 47.0 kB
+   - Imagens de produtos: de ~380 kB para ~20-30 kB cada.
+3. `NgOptimizedImage`: integrado em `ImageComponent`, com `priority="true"` na imagem LCP (`happy-customer.webp`) e `loading="lazy"` nas demais com `width`/`height` explícitos.
+4. Fonte Google: carregamento assíncrono não-bloqueante (`media="print" onload="this.media='all'"` com preload e fallback `<noscript>`).
+5. Acessibilidade e Contraste (WCAG AA >= 4.5:1):
+   - Branco sobre vermelho (`bg-red-500` 3.76:1) ajustado para `bg-red-600` (4.83:1).
+   - `text-red-500` sobre branco (3.76:1) ajustado para `text-red-600` (4.83:1).
+   - `text-yellow-500`/`amber-400` sobre branco (1.67:1 - 1.92:1) ajustados para `text-amber-700` (5.02:1).
+   - `TagComponent` `text-orange-600` sobre `orange-100` (3.1:1) ajustado para `text-orange-800` (6.38:1).
+   - Modal `to-red-100` com `text-white` corrigido para `from-red-600 to-red-700`.
+   - Placeholders de inputs configurados com `placeholder:text-gray-600` (7.56:1) eliminando falha de `text-gray-400 sobre branco`.

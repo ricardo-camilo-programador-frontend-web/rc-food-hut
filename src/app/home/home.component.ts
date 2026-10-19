@@ -14,14 +14,32 @@ import { AppSection } from '@/blocks/sections/app.section';
   template: `
     <div class="grid grid-cols-1 gap-16 pt-[6rem]">
       <intro-section></intro-section>
-      <special-offers-section></special-offers-section>
-      <about-us-section></about-us-section>
-      <menu-section></menu-section>
-      <app-section></app-section>
+
+      @defer (on viewport) {
+        <special-offers-section></special-offers-section>
+      } @placeholder {
+        <div class="min-h-[38rem]" aria-hidden="true"></div>
+      }
+
+      @defer (on viewport) {
+        <about-us-section></about-us-section>
+      } @placeholder {
+        <div class="min-h-[38rem]" aria-hidden="true"></div>
+      }
+
+      @defer (on viewport) {
+        <menu-section></menu-section>
+      } @placeholder {
+        <div class="min-h-[38rem]" aria-hidden="true"></div>
+      }
+
+      @defer (on viewport) {
+        <app-section></app-section>
+      } @placeholder {
+        <div class="min-h-[38rem]" aria-hidden="true"></div>
+      }
     </div>
   `
 })
 
-export class HomeComponent {
-
-}
+export class HomeComponent {}
