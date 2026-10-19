@@ -18,5 +18,5 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
   `,
 })
 export class DownloadShortcutBlock {
-  @Input() className: string = "";
+  @Input() className = "";
 }

@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 
 jobs:
   build:
@@ -40,6 +40,15 @@ jobs:
 
       - name: Instalar dependencias
         run: pnpm install --ignore-scripts
+
+      - name: Checagem de tipos
+        run: pnpm run typecheck
+
+      - name: Analise estatica (lint)
+        run: pnpm run lint
+
+      - name: Testes unitarios
+        run: pnpm test
 
       - name: Build do projeto
         run: pnpm run build
