@@ -1,15 +1,16 @@
 name: CI
 
+# Runner: GitHub-hosted por padrão; defina a variável de repositório CI_RUNS_ON=self-hosted para voltar ao runner próprio.
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 
 jobs:
   build:
     name: Build do Projeto
-    runs-on: self-hosted
+    runs-on: ${{ vars.CI_RUNS_ON || 'ubuntu-latest' }}
     timeout-minutes: 15
     env:
       VITE_PORTFOLIO_URL: ""
@@ -32,14 +33,25 @@ jobs:
 
       - name: Setup PATH
         run: echo "/usr/local/bin" >> $GITHUB_PATH
-      - name: Cache pnpm store
-        uses: actions/cache@v3
+      - name: Instalar pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
 
       - name: Instalar dependencias
         run: pnpm install --ignore-scripts
+
+      - name: Checagem de tipos
+        run: pnpm run typecheck
+
+      - name: Analise estatica (lint)
+        run: pnpm run lint
+
+      - name: Testes unitarios
+        run: pnpm test
 
       - name: Build do projeto
         run: pnpm run build
@@ -53,7 +65,7 @@ jobs:
 
   security:
     name: Auditoria de Seguranca
-    runs-on: self-hosted
+    runs-on: ${{ vars.CI_RUNS_ON || 'ubuntu-latest' }}
     timeout-minutes: 10
     continue-on-error: true
     steps:
@@ -61,11 +73,13 @@ jobs:
 
       - name: Setup PATH
         run: echo "/usr/local/bin" >> $GITHUB_PATH
-      - name: Cache pnpm store
-        uses: actions/cache@v3
+      - name: Instalar pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
 
       - name: Instalar dependencias
         run: pnpm install --ignore-scripts
@@ -92,17 +106,21 @@ jobs:
 
   sonar:
     name: Analise SonarQube
-    runs-on: self-hosted
+    # depende do /opt/sonar-scanner do runner self-hosted
+    if: vars.CI_RUNS_ON == 'self-hosted'
+    runs-on: ${{ vars.CI_RUNS_ON || 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup PATH
         run: echo "/usr/local/bin" >> $GITHUB_PATH
-      - name: Cache pnpm store
-        uses: actions/cache@v3
+      - name: Instalar pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
 
       - name: Instalar dependencias
         run: pnpm install --ignore-scripts

@@ -18,9 +18,9 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
         >
           <div class="w-full lg:w-1/2 z-10 md:ml-16">
             <h2 class="text-4xl font-bold leading-tight mb-6">
-              {{ 'app.heading1' | translate }} <span class="text-red-500">{{ 'app.heading2' | translate }}</span> {{ 'app.heading3' | translate }}
-              <span class="text-amber-400">{{ 'app.heading4' | translate }}</span><br />
-              {{ 'app.heading5' | translate }} <span class="text-red-500">{{ 'app.heading6' | translate }}</span>
+              {{ 'app.heading1' | translate }} <span class="text-red-600">{{ 'app.heading2' | translate }}</span> {{ 'app.heading3' | translate }}
+              <span class="text-amber-700">{{ 'app.heading4' | translate }}</span><br />
+              {{ 'app.heading5' | translate }} <span class="text-red-600">{{ 'app.heading6' | translate }}</span>
             </h2>
 
             <p class="text-gray-600 mb-8 max-w-lg">
@@ -53,7 +53,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
             <div class="relative w-full md:w-1/2 h-[17rem]">
               <div
                 class="top-0 right-0 bg-red-500 rounded-full w-[25rem] h-[25rem] -z-0 relative"
-                style="background-image: url('/assets/images/vintage-kitchen-display.webp'); background-size: cover; background-position: center;"
+                style="background-image: url('assets/images/vintage-kitchen-display.webp'); background-size: cover; background-position: center;"
               ></div>
 
               <div
@@ -72,8 +72,11 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
                 class="absolute inset-0 top-[2.5rem] w-[25rem]  object-contain h-[25rem] rounded-b-full -mt-[10rem]"
               >
                 <app-image
-                  [src]="'/assets/images/chef-presenting-app.webp'"
+                  [src]="'assets/images/chef-presenting-app.webp'"
                   [alt]="'alt.chefPresentingApp' | translate"
+                  [width]="359"
+                  [height]="500"
+                  loading="lazy"
                   [className]="
                     'absolute inset-0 w-full  object-contain rounded-b-full z-[6]'
                   "
@@ -92,6 +95,9 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
             <app-image
               [src]="'assets/images/coriander-leaves.webp'"
               [alt]="'alt.corianderLeaves' | translate"
+              [width]="400"
+              [height]="264"
+              loading="lazy"
               [className]="
                 'absolute -bottom-[13rem] right-[15rem] w-32 scale-150  z-[4]'
               "

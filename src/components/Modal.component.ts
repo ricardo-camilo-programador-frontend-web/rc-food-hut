@@ -34,7 +34,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
             <h2 class="text-xl font-bold">{{ title }}</h2>
             <button
               (click)="onClose()"
-              class="text-gray-500 hover:text-red-500 transition-colors"
+              class="text-gray-600 hover:text-red-600 transition-colors"
               [attr.aria-label]="'modal.close' | translate"
             >
               <svg
