@@ -35,7 +35,7 @@ export const env = {
   "enabled": true,
   "clarityId": "yyrpw7vjoz",
   "ga4Id": "G-MSX663TSDY",
-  "gtmId": "GTM-5HWWCSZ4",
+  "gtmId": "",
   "gtmEnabled": false,
   "gtmGa4Id": "",
   "counterId": "f30df6f3-776d-4154-959d-0210ac8a8325",

@@ -60,6 +60,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
       <app-image
         [src]="'assets/svg/yellow-overlay.svg'"
         [alt]="'alt.yellowOverlay' | translate"
+        priority
         [className]="'lg:w-[36rem] lg:h-[26rem] h-auto absolute -top-[12rem] -right-36 z-[-1]'"
       ></app-image>
 
