@@ -17,7 +17,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
   `,
 })
 export class ButtonComponent {
-  @Input() label: string = "";
-  @Input() className: string = "";
-  @Input() title: string = "";
+  @Input() label = "";
+  @Input() className = "";
+  @Input() title = "";
 }

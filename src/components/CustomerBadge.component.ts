@@ -32,7 +32,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
               [className]="'w-3 lg:w-6 h-auto object-contain'"
             ></app-image>
             <span class="text-xs lg:text-normal text-gray-700 font-medium">{{ rating }}</span>
-            <span class="text-xs text-gray-500 lg:text-sm">({{ reviews }} {{ 'customerBadge.reviews' | translate }})</span>
+            <span class="text-xs text-gray-600 font-medium lg:text-sm">({{ reviews }} {{ 'customerBadge.reviews' | translate }})</span>
           </div>
         </div>
       </div>
@@ -40,8 +40,8 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
   `,
 })
 export class CustomerBadgeComponent {
-  @Input() rating: number = 4.9;
-  @Input() reviews: number = 1989;
-  @Input() title: string = '';
-  @Input() className: string = "";
+  @Input() rating = 4.9;
+  @Input() reviews = 1989;
+  @Input() title = '';
+  @Input() className = "";
 }

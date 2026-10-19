@@ -20,7 +20,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
         class="flex flex-col md:flex-row w-full justify-between gap-8"
       >
         <div class="w-full md:max-w-[21rem] flex flex-col gap-4">
-          <h2 class="text-red-500 text-2xl font-bold">{{ 'footer.companyName' | translate }}</h2>
+          <h2 class="text-red-600 text-2xl font-bold">{{ 'footer.companyName' | translate }}</h2>
           <p class="text-gray-600 max-w-xs">
             {{ 'footer.description' | translate }}
           </p>
@@ -69,12 +69,12 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
           class="flex flex-col sm:flex-row md:flex-nowrap justify-between w-full md:max-w-[20rem] gap-8 md:gap-4"
         >
           <div class="min-w-[10rem]">
-            <h3 class="text-red-500 text-xl font-semibold">{{ 'footer.aboutUs' | translate }}</h3>
+            <h3 class="text-red-600 text-xl font-semibold">{{ 'footer.aboutUs' | translate }}</h3>
             <ul class="space-y-2">
               <li>
                 <a
                   [href]="redirectLinks[3]"
-                  class="text-gray-600 hover:text-red-500"
+                  class="text-gray-600 hover:text-red-600"
                   rel="noopener"
                   target="_blank"
                 >
@@ -84,7 +84,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
               <li>
                 <a
                   [href]="redirectLinks[4]"
-                  class="text-gray-600 hover:text-red-500"
+                  class="text-gray-600 hover:text-red-600"
                   rel="noopener"
                   target="_blank"
                 >
@@ -94,7 +94,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
               <li>
                 <a
                   [href]="redirectLinks[5]"
-                  class="text-gray-600 hover:text-red-500"
+                  class="text-gray-600 hover:text-red-600"
                   rel="noopener"
                   target="_blank"
                 >
@@ -104,7 +104,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
               <li>
                 <a
                   [href]="redirectLinks[6]"
-                  class="text-gray-600 hover:text-red-500"
+                  class="text-gray-600 hover:text-red-600"
                   rel="noopener"
                   target="_blank"
                 >
@@ -115,12 +115,12 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
           </div>
 
           <div class="min-w-[10rem]">
-            <h3 class="text-red-500 text-xl font-semibold">{{ 'footer.company' | translate }}</h3>
+            <h3 class="text-red-600 text-xl font-semibold">{{ 'footer.company' | translate }}</h3>
             <ul class="space-y-2">
               <li>
                 <a
                   href="#"
-                  class="text-gray-600 hover:text-red-500"
+                  class="text-gray-600 hover:text-red-600"
                   rel="noopener"
                   target="_blank"
                 >
@@ -130,7 +130,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
               <li>
                 <a
                   [href]="redirectLinks[7]"
-                  class="text-gray-600 hover:text-red-500"
+                  class="text-gray-600 hover:text-red-600"
                   rel="noopener"
                   target="_blank"
                 >
@@ -140,7 +140,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
               <li>
                 <a
                   [routerLink]="['/privacy-policy']"
-                  class="text-gray-600 hover:text-red-500"
+                  class="text-gray-600 hover:text-red-600"
                   rel="noopener"
                   target="_blank"
                   >{{ 'footer.privacyPolicy' | translate }}</a
@@ -149,7 +149,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
               <li>
                 <a
                   [href]="redirectLinks[8]"
-                  class="text-gray-600 hover:text-red-500"
+                  class="text-gray-600 hover:text-red-600"
                   rel="noopener"
                   target="_blank"
                   >{{ 'footer.sitemap' | translate }}</a
@@ -161,7 +161,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
 
         <div class="w-full md:max-w-[20rem] flex flex-col gap-4">
           <div class="flex flex-col gap-4 mr-auto">
-            <h3 class="text-red-500 text-xl font-semibold">
+            <h3 class="text-red-600 text-xl font-semibold">
               {{ 'footer.getInTouch' | translate }}
             </h3>
             <p class="text-gray-600">
@@ -181,7 +181,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
 
             <app-button
               [className]="
-                'w-full sm:w-auto px-6 py-2 bg-red-500 text-white hover:bg-[#ff4542] transition-colors rounded-full'
+                'w-full sm:w-auto px-6 py-2 bg-red-600 text-white hover:bg-red-700 transition-colors rounded-full'
               "
             >
               {{ 'footer.subscribe' | translate }}
@@ -193,7 +193,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
       <div class="mt-12 text-center text-gray-600">
         <a
           [href]="redirectLinks[9]"
-          class="hover:text-red-500"
+          class="hover:text-red-600"
           rel="noopener"
           target="_blank"
         >

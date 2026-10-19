@@ -38,15 +38,15 @@ import { I18nService } from '@/services/i18n.service';
 export class BuyMeCoffeeComponent {
   private i18nService = inject(I18nService);
 
-  @Input() username: string = '';
+  @Input() username = '';
   @Input() theme: 'default' | 'outline' | 'colored' = 'default';
-  @Input() message: string = '';
+  @Input() message = '';
 
   get displayMessage(): string {
     return this.message || this.i18nService.translate('buyMeCoffee.message');
   }
 
-  getButtonClass(): { [key: string]: boolean } {
+  getButtonClass(): Record<string, boolean> {
     return {
       'bg-[#FFDD00] text-black': this.theme === 'default',
       'border-2 border-[#FFDD00] text-[#FFDD00]': this.theme === 'outline',

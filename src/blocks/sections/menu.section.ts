@@ -17,11 +17,11 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
       <div class="text-center mb-12">
         <h2 class="text-4xl font-bold">
           {{ 'menu.heading1' | translate }}
-          <span class="text-red-500">{{ 'menu.heading2' | translate }}</span>
-          <span class="text-amber-400">{{ 'menu.heading3' | translate }}</span>
+          <span class="text-red-600">{{ 'menu.heading2' | translate }}</span>
+          <span class="text-amber-700">{{ 'menu.heading3' | translate }}</span>
         </h2>
         <h3 class="text-3xl font-bold">
-          {{ 'menu.heading4' | translate }} <span class="text-red-500">{{ 'menu.heading5' | translate }}</span>
+          {{ 'menu.heading4' | translate }} <span class="text-red-600">{{ 'menu.heading5' | translate }}</span>
         </h3>
       </div>
 
@@ -31,8 +31,8 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
             [className]="
               'px-6 py-2 rounded-full text-sm transition-all ' +
               (selectedCategory === category.id
-                ? 'bg-red-500 text-white'
-                : 'bg-gray-100 hover:bg-gray-200')
+                ? 'bg-red-600 text-white'
+                : 'bg-gray-100 hover:bg-gray-200 text-gray-800')
             "
             (click)="selectCategory(category.id)"
           >
@@ -59,7 +59,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
         </div>
       } @else {
         <div class="col-span-full text-center py-8">
-          <p class="text-gray-500 text-lg">
+          <p class="text-gray-600 text-lg">
             {{ 'menu.noProducts' | translate }}
           </p>
         </div>

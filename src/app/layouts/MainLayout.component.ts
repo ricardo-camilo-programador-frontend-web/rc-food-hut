@@ -17,6 +17,9 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
       <app-image
         [src]="'assets/images/black-transparent-background.webp'"
         [alt]="'alt.blackTransparentBackground' | translate"
+        [width]="1440"
+        [height]="788"
+        loading="lazy"
         [className]="'min-w-screen w-full h-auto absolute inset-0 z-[-2]  -mt-24'"
       ></app-image>
 
