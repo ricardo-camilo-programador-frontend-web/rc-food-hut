@@ -68,8 +68,11 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
                 class="absolute inset-0 top-[2.5rem] w-[25rem]  object-contain h-[25rem] rounded-b-full -mt-[10rem]"
               >
                 <app-image
-                  [src]="'/assets/images/chef-presenting-dish.webp'"
+                  [src]="'assets/images/chef-presenting-dish.webp'"
                   [alt]="'alt.chefPresentingDish' | translate"
+                  [width]="403"
+                  [height]="500"
+                  loading="lazy"
                   [className]="
                     'absolute inset-0 top-[1.7rem] w-full  object-contain rounded-b-full'
                   "
@@ -108,8 +111,8 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
 
           <div class="w-full md:w-1/2 max-w-[43rem] text-black pt-32">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">
-              {{ 'aboutUs.heading1' | translate }} <span class="text-red-500">{{ 'aboutUs.heading2' | translate }}</span> {{ 'aboutUs.conjunction' | translate }}<br />
-              <span class="text-amber-400">{{ 'aboutUs.heading3' | translate }}</span> {{ 'aboutUs.heading4' | translate }}
+              {{ 'aboutUs.heading1' | translate }} <span class="text-red-600">{{ 'aboutUs.heading2' | translate }}</span> {{ 'aboutUs.conjunction' | translate }}<br />
+              <span class="text-amber-700">{{ 'aboutUs.heading3' | translate }}</span> {{ 'aboutUs.heading4' | translate }}
             </h2>
 
             <p class="text-gray-600 mb-8">
@@ -120,7 +123,7 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
 
             <a
               [href]="[getRandomLinkForRedirection()]"
-              class="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full transition-colors mt-6"
+              class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full transition-colors mt-6"
               rel="noopener"
               target="_blank"
             >

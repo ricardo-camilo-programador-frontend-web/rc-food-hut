@@ -26,10 +26,13 @@ import type { Product } from "@/types/product.types";
         <app-image
           [src]="product.image"
           [alt]="product.name | translate"
+          [width]="396"
+          [height]="396"
+          loading="lazy"
           [className]="'w-[12rem] h-[12rem] object-cover rounded-lg mx-auto'"
         />
 
-        <p class="text-white text-xs font-bold rounded-full px-2 py-1 bg-yellow-600 w-[4rem] h-[4rem] flex items-center justify-center truncate absolute right-12 -mt-12 border-4 border-white">
+        <p class="text-white text-xs font-bold rounded-full px-2 py-1 bg-amber-700 w-[4rem] h-[4rem] flex items-center justify-center truncate absolute right-12 -mt-12 border-4 border-white">
           {{ product.price }} {{ 'currency.symbol' | translate }}
         </p>
       </div>
@@ -60,7 +63,7 @@ import type { Product } from "@/types/product.types";
       </div>
 
       <div class="flex flex-col gap-2 items-center mt-6">
-        <h3 class="font-semibold text-lg mb-2 text-red-500">
+        <h3 class="font-semibold text-lg mb-2 text-red-600">
           {{ product.name | translate }}
         </h3>
         <p class="text-gray-600 text-sm mb-4 max-w-[15rem] text-center px-2">
@@ -70,7 +73,7 @@ import type { Product } from "@/types/product.types";
 
       <a
         [href]="[getRandomLinkForRedirection()]"
-        class="bg-red-500 text-white px-4 py-2 rounded-full text-sm hover:bg-red-600 transition-colors absolute -bottom-4 inset-x-0 w-[8rem] mx-auto text-center"
+        class="bg-red-600 text-white px-4 py-2 rounded-full text-sm hover:bg-red-700 transition-colors absolute -bottom-4 inset-x-0 w-[8rem] mx-auto text-center"
         rel="noopener"
         target="_blank"
       >

@@ -15,6 +15,9 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
         <app-image
           [src]="imageSrc"
           [alt]="name"
+          [width]="48"
+          [height]="48"
+          loading="lazy"
           [className]="'w-12 h-12 rounded'"
         />
         <div>

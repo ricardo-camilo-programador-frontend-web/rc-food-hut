@@ -23,7 +23,7 @@ import { AnalyticsService } from "@/services/analytics.service";
     >
       <div class="p-2 space-y-6">
         <div
-          class="p-4 rounded-lg shadow-md bg-gradient-to-r from-red-600 to-red-100"
+          class="p-4 rounded-lg shadow-md bg-gradient-to-r from-red-600 to-red-700"
         >
           <p class="text-lg font-medium text-center text-white">
             {{ 'introWarningModal.welcome' | translate }}
@@ -47,7 +47,7 @@ import { AnalyticsService } from "@/services/analytics.service";
 
           <a
             [routerLink]="['/privacy-policy']"
-            class="flex items-center justify-center gap-2 p-1 py-2 transition-colors rounded-lg bg-gray-50 text-blue-500 hover:underline"
+            class="flex items-center justify-center gap-2 p-1 py-2 transition-colors rounded-lg bg-gray-50 text-blue-600 hover:underline"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -114,25 +114,25 @@ import { AnalyticsService } from "@/services/analytics.service";
         </div>
 
         <div class="pt-4 mt-4 border-t">
-          <p class="text-sm text-center text-gray-500">
+          <p class="text-sm text-center text-gray-600">
             {{ 'introWarningModal.designCredits' | translate }}
             <a
               [href]="'https://www.figma.com/' + figmaUsername"
               target="_blank"
               rel="noopener noreferrer"
-              class="ml-1 text-green-600 hover:text-green-700"
+              class="ml-1 text-green-700 hover:text-green-800 font-medium"
             >
               {{ figmaUsername }}
             </a>
           </p>
-          <p class="mt-1 text-sm text-center text-gray-500">
+          <p class="mt-1 text-sm text-center text-gray-600">
             <a
               [href]="
                 'https://www.figma.com/community/file/' + figmaOriginalDesign
               "
               target="_blank"
               rel="noopener noreferrer"
-              class="text-green-600 hover:text-green-700"
+              class="text-green-700 hover:text-green-800 font-medium"
             >
               {{ 'introWarningModal.viewOriginalDesign' | translate }}
             </a>

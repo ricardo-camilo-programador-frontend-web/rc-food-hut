@@ -18,7 +18,7 @@ import { LabelComponent } from "./Label.component";
           [id]="id"
           [type]="type"
           [placeholder]="placeholder"
-          class="w-full px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-red-500 "
+          class="w-full px-4 py-3 rounded-full border border-gray-200 placeholder:text-gray-600 text-gray-800 focus:outline-none focus:border-red-600 "
           [class]="inputClassName"
         />
         <ng-content></ng-content>

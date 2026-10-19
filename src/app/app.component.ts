@@ -9,7 +9,7 @@ import { env } from '@/configs/env';
   standalone: true,
   imports: [RouterOutlet],
   template: `
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:bg-red-500 focus:text-white focus:px-4 focus:py-2 focus:rounded">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:bg-red-600 focus:text-white focus:px-4 focus:py-2 focus:rounded">
       Skip to main content
     </a>
     <router-outlet></router-outlet>
