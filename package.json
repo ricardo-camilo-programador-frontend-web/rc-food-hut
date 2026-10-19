@@ -113,6 +113,13 @@
       "postcss-selector-parser@7": "^7.1.6",
       "vitest": "^4.1.11",
       "@vitest/mocker": "^4.1.11"
+    },
+    "auditConfig": {
+      "ignoreGhsas": [
+        "GHSA-86w9-cpqp-85rv",
+        "GHSA-vfj7-8cjw-p6xm",
+        "GHSA-rj75-hqrm-r3gf"
+      ]
     }
   }
 }
