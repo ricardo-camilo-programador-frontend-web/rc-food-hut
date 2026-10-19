@@ -96,7 +96,7 @@ import type { NavigationItem } from "@/types/navigation.types";
   `
 })
 export class MobileMenuComponent {
-  @Input() isOpen: boolean = false
+  @Input() isOpen = false
   @Output() closeMenu = new EventEmitter<void>()
 
   @ViewChild("menuPanel") menuPanel!: ElementRef<HTMLElement>

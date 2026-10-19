@@ -42,11 +42,11 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
 export class FoodRatingCardComponent {
   private i18nService = inject(I18nService);
 
-  @Input() imageSrc: string = "";
-  @Input() name: string = "";
-  @Input() rating: number = 0;
-  @Input() price: number = 0;
-  @Input() className: string = "";
+  @Input() imageSrc = "";
+  @Input() name = "";
+  @Input() rating = 0;
+  @Input() price = 0;
+  @Input() className = "";
 
   priceLabel = computed(() => this.i18nService.translate('currency.symbol') + this.price);
 

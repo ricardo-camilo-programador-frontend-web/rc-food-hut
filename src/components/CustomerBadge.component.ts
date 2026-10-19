@@ -40,8 +40,8 @@ import { TranslatePipe } from "@/pipes/translate.pipe";
   `,
 })
 export class CustomerBadgeComponent {
-  @Input() rating: number = 4.9;
-  @Input() reviews: number = 1989;
-  @Input() title: string = '';
-  @Input() className: string = "";
+  @Input() rating = 4.9;
+  @Input() reviews = 1989;
+  @Input() title = '';
+  @Input() className = "";
 }

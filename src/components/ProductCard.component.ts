@@ -81,7 +81,7 @@ import type { Product } from "@/types/product.types";
 })
 export class ProductCardComponent {
   @Input() product!: Product;
-  @Input() className: string = '';
+  @Input() className = '';
 
   getRandomLinkForRedirection() {
     return getRandomLinkForRedirection();

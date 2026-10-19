@@ -19,11 +19,11 @@ import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
 })
 
 export class ImageComponent {
-  @Input() src: string = '';
-  @Input() alt: string = '';
-  @Input() width: string = '';
-  @Input() height: string = '';
-  @Input() loading: string = 'lazy';
+  @Input() src = '';
+  @Input() alt = '';
+  @Input() width = '';
+  @Input() height = '';
+  @Input() loading = 'lazy';
   @Input() fetchpriority: 'high' | 'low' | 'auto' = 'auto';
-  @Input() className: string = '';
+  @Input() className = '';
 }

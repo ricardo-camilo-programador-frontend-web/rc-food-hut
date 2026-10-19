@@ -28,12 +28,12 @@ import { LabelComponent } from "./Label.component";
 })
 
 export class InputTextComponent {
-  @Input() type: string = "text";
-  @Input() placeholder: string = "";
-  @Input() required: boolean = false;
-  @Input() error: string = "";
-  @Input() label: string = "";
-  @Input() id: string = "";
-  @Input() className: string = "";
-  @Input() inputClassName: string = "";
+  @Input() type = "text";
+  @Input() placeholder = "";
+  @Input() required = false;
+  @Input() error = "";
+  @Input() label = "";
+  @Input() id = "";
+  @Input() className = "";
+  @Input() inputClassName = "";
 }
