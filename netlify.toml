@@ -35,3 +35,9 @@
   for = "/safety-worker.js"
   [headers.values]
     Cache-Control = "no-cache"
+
+# Fallback de SPA: rotas como /privacy-policy davam 404 no acesso direto
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
