@@ -150,10 +150,9 @@ export class IntroWarningModalSection implements OnInit {
   analyticsEnabled = false;
   isOpen = false;
 
+  private readonly router = inject(Router);
   private readonly clarityService = inject(ClarityService);
   private readonly analyticsService = inject(AnalyticsService);
-
-  constructor(private router: Router) {}
 
   ngOnInit(): void {
     const savedAnalyticsPreference = getItemFromLocalStorage("analyticsEnabled");

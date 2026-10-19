@@ -43,7 +43,6 @@ export class AnalyticsService {
     if (!this.analytics.ga4Id) return;
     const w = window as Window;
     w.dataLayer = w.dataLayer || [];
-    // eslint-disable-next-line prefer-rest-params
     const gtag: (...args: unknown[]) => void = (w.gtag = function gtag(): void {
       // eslint-disable-next-line prefer-rest-params
       w.dataLayer?.push(arguments);

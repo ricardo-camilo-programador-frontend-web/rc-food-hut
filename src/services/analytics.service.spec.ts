@@ -50,7 +50,16 @@ describe('AnalyticsService', () => {
     const script = document.head.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-MSX663TSDY"]');
     expect(script).toBeTruthy();
 
-    expect(window.dataLayer).toContainEqual(['config', 'G-MSX663TSDY']);
+    const dataLayer = window.dataLayer as unknown[];
+    expect(dataLayer.length).toBeGreaterThanOrEqual(2);
+
+    dataLayer.forEach((entry) => {
+      expect(Object.prototype.toString.call(entry)).toBe('[object Arguments]');
+    });
+
+    const entries = dataLayer.map((entry) => Array.from(entry as IArguments));
+    expect(entries.some((entry) => entry[0] === 'js' && entry[1] instanceof Date)).toBe(true);
+    expect(entries.some((entry) => entry[0] === 'config' && entry[1] === 'G-MSX663TSDY')).toBe(true);
   });
 
   it('should inject counter.dev script with counter id', () => {

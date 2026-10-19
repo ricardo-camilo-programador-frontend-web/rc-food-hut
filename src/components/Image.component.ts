@@ -32,14 +32,14 @@ import { NgOptimizedImage } from "@angular/common";
 })
 
 export class ImageComponent {
-  @Input() src: string = '';
-  @Input() alt: string = '';
+  @Input() src = '';
+  @Input() alt = '';
   @Input() width: string | number = '';
   @Input() height: string | number = '';
-  @Input() loading: string = 'lazy';
+  @Input() loading = 'lazy';
   @Input() fetchpriority: 'high' | 'low' | 'auto' = 'auto';
-  @Input({ transform: booleanAttribute }) priority: boolean = false;
-  @Input() className: string = '';
+  @Input({ transform: booleanAttribute }) priority = false;
+  @Input() className = '';
 
   get numericWidth(): number {
     const val = Number(this.width);

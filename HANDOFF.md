@@ -250,3 +250,37 @@ Saída resumida:
   - `src/app/app.component.spec.ts`: 1 teste aprovado (smoke de criação e injeção de rotas/metadados).
   - `src/app/home/home.component.spec.ts`: 2 testes aprovados (smoke de instanciação e montagem com subseções).
 - `pnpm run build` (`npx tsx scripts/generate-env.ts && ng build`): bundle gerado com sucesso em `dist/first-app` (Initial total: 390.08 kB, dentro do budget).
+
+---
+
+## Integração — Resultado
+
+### Comandos executados e saídas
+
+1. Gates de comportamento e integridade de analytics:
+```bash
+npx tsx scripts/test-analytics-gate.ts && npx tsx scripts/behavior-gate.ts
+```
+Saída:
+```
+🧪 Running Analytics & Headers Behavior Gate...
+✅ Gate 1: Analytics defaults verified.
+✅ Gate 2: GA4 dataLayer Arguments contract verified.
+✅ Gate 3: counter.dev script verified.
+✅ Gate 4: netlify.toml and security headers verified.
+🎉 All behavior gates PASSED!
+--- RUNNING BEHAVIOR GATE ---
+✅ Analytics and Routes Gate PASSED
+```
+
+2. Pipeline de verificação completa:
+```bash
+pnpm install && pnpm run typecheck && pnpm run lint && pnpm test && pnpm run build
+```
+
+Saída resumida:
+- `pnpm install`: Lockfile sincronizado (v9.15.9), dependências atualizadas.
+- `pnpm run typecheck` (`tsc -p tsconfig.app.json --noEmit`): Exit code 0, nenhum erro de tipagem.
+- `pnpm run lint` (`ng lint`): Exit code 0, 0 erros (resolvidos `@angular-eslint/prefer-inject` em `IntroWarningModal.section.ts`, `@typescript-eslint/no-inferrable-types` em `Image.component.ts` e diretiva não utilizada em `analytics.service.ts`). 7 warnings de acessibilidade/convenção tolerados.
+- `pnpm test` (`vitest run`): Exit code 0, 4 arquivos de teste e 12/12 testes aprovados (validação de `dataLayer` como objeto `Arguments` com 'js'/'config' e compatibilidade com o runtime do GA4).
+- `pnpm run build` (`npx tsx scripts/generate-env.ts && ng build`): Exit code 0, bundle gerado com sucesso em `dist/first-app` (Initial total: 345.55 kB, 95.78 kB transfer).
