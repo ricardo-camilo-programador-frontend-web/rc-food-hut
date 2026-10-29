@@ -14,6 +14,18 @@ import { AnalyticsService } from "@/services/analytics.service";
   standalone: true,
   imports: [ModalComponent, CommonModule, RouterModule, ImageComponent, TranslatePipe],
   template: `
+    <button
+      type="button"
+      (click)="openModal()"
+      aria-label="Open project info"
+      class="fixed bottom-4 left-4 z-[9998] h-12 w-12 overflow-hidden rounded-full border-2 border-white shadow-lg ring-2 ring-red-600 transition-transform hover:scale-110"
+    >
+      <img
+        src="assets/images/ricardo-camilo-frontend-developer-frontend-engineer-software-engineer-web-developer-vuejs-vue-reactjs-react-javascript-typescript-component-architecture.webp"
+        alt=""
+        class="h-full w-full object-cover"
+      />
+    </button>
     <app-modal
       [id]="'intro-warning-modal'"
       [title]="'introWarningModal.title' | translate"
