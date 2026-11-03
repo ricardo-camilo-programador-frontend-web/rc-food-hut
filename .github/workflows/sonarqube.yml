@@ -14,7 +14,7 @@ jobs:
   sonarqube:
     name: SonarQube Analysis
     # Self-hosted runner (Nobara systemd runners) — SonarQube server reachable via SONAR_HOST_URL
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
