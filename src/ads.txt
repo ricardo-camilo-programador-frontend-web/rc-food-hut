@@ -1,0 +1,3 @@
+# ads.txt — placeholder (issue #28).
+# A Adsterra não fornece linha oficial por padrão: pedir ao suporte antes de
+# adicionar qualquer entrada aqui. Não inventar publisher id.

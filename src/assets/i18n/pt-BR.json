@@ -230,12 +230,16 @@
     "title": "Projeto de Estudo - 🍽 Food Hut - Angular Chronicles",
     "welcome": "Bem-vindo ao meu projeto de estudo! 🚀",
     "allowAnalytics": "Permitir Ferramentas de Análise",
+    "adsInfo": "Publicidade: este site exibe, quando permitido, um anúncio discreto no fim da página — sem pop-ups e sem redirecionamentos.",
     "privacyPolicy": "Política de Privacidade",
     "description": "Esta é uma demonstração das minhas habilidades de desenvolvimento frontend, com foco em tecnologias web modernas e melhores práticas.",
     "portfolio": "Confira meu portfólio",
     "linkedin": "Conecte-se comigo no LinkedIn",
     "designCredits": "Créditos de Design:",
     "viewOriginalDesign": "Ver design original"
+  },
+  "adsterra": {
+    "label": "Publicidade"
   },
   "privacyPolicy": {
     "title": "Política de Privacidade",

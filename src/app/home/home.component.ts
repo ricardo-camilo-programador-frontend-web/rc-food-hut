@@ -5,12 +5,13 @@ import { SpecialOffersSection } from '@/blocks/sections/specialOffers.section';
 import { AboutUsSection } from '@/blocks/sections/aboutUs.section';
 import { MenuSection } from '@/blocks/sections/menu.section';
 import { AppSection } from '@/blocks/sections/app.section';
+import { AdsterraBannerComponent } from '@/components/AdsterraBanner.component';
 
 @Component({
   selector: 'home',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, IntroSection, SpecialOffersSection, AboutUsSection, MenuSection, AppSection],
+  imports: [CommonModule, IntroSection, SpecialOffersSection, AboutUsSection, MenuSection, AppSection, AdsterraBannerComponent],
   template: `
     <div class="grid grid-cols-1 gap-16 pt-[6rem]">
       <intro-section></intro-section>
@@ -38,6 +39,8 @@ import { AppSection } from '@/blocks/sections/app.section';
       } @placeholder {
         <div class="min-h-[38rem]" aria-hidden="true"></div>
       }
+
+      <app-adsterra-banner></app-adsterra-banner>
     </div>
   `
 })

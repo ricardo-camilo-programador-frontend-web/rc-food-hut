@@ -78,6 +78,11 @@ All environment variables are documented in `.env.example`. Since this is an Ang
 | `VITE_GA_MEASUREMENT_ID` | Google Analytics measurement ID |
 | `VITE_GTM_ID` | Google Tag Manager container ID |
 | `VITE_COUNTER_DEV_ID` | Counter.dev site ID |
+| `NG_APP_ADSTERRA_NATIVE_KEY` | Adsterra Native Banner zone key (empty = no ad renders) |
+| `NG_APP_ADSTERRA_NATIVE_HOST` | Adsterra invoke.js host (bare host, no `https://`) |
+| `NG_APP_ADSTERRA_BANNER_KEY` | Optional Adsterra display banner zone key |
+| `NG_APP_ADSTERRA_BANNER_HOST` | Optional Adsterra display banner host |
+| `NG_APP_ADSTERRA_ENABLED` | Adsterra kill switch (`false`/`0`/`off` disables) |
 
 To update any value, edit `src/configs/env.ts`.
 
