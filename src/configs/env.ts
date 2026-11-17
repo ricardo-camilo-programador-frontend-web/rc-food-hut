@@ -44,4 +44,11 @@ export const env = {
   "loadGtag": true,
   "loadClarity": true
 },
+
+  // Adsterra (resolved by readAdsterraValue: NG_APP_ADSTERRA_* > VITE_ADSTERRA_*)
+  ADSTERRA_ENABLED: '',
+  ADSTERRA_NATIVE_KEY: '',
+  ADSTERRA_NATIVE_HOST: '',
+  ADSTERRA_BANNER_KEY: '',
+  ADSTERRA_BANNER_HOST: '',
 } as const;

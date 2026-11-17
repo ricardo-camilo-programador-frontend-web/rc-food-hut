@@ -8,6 +8,7 @@ import { ImageComponent } from "@/components/Image.component";
 import { TranslatePipe } from "@/pipes/translate.pipe";
 import { ClarityService } from "@/services/clarity.service";
 import { AnalyticsService } from "@/services/analytics.service";
+import { ADSTERRA_CONSENT_EVENT } from "@/lib/ads/adsterra";
 
 @Component({
   selector: "intro-warning-modal",
@@ -56,6 +57,10 @@ import { AnalyticsService } from "@/services/analytics.service";
               <span [class]="getToggleSpanClasses()"></span>
             </button>
           </div>
+
+          <p class="px-2 py-1 text-xs leading-relaxed text-gray-500">
+            {{ 'introWarningModal.adsInfo' | translate }}
+          </p>
 
           <a
             [routerLink]="['/privacy-policy']"
@@ -176,6 +181,13 @@ export class IntroWarningModalSection implements OnInit {
       saveItemOnLocalStorage("analyticsEnabled", "true");
     }
 
+    // Public contract for ad/analytics consumers (e.g. AdsterraBannerComponent):
+    // same shape as rc-apple-abyss's rc-study-modal.
+    window.rcStudyModal = {
+      open: () => this.openModal(),
+      isAnalyticsEnabled: () => this.analyticsEnabled,
+    };
+
     if (this.checkIfPageIsPrivacyPolicy()) {
       this.isOpen = false;
     } else {
@@ -202,6 +214,9 @@ export class IntroWarningModalSection implements OnInit {
   toggleAnalytics(): void {
     this.analyticsEnabled = !this.analyticsEnabled;
     saveItemOnLocalStorage("analyticsEnabled", String(this.analyticsEnabled));
+    window.dispatchEvent(
+      new CustomEvent(ADSTERRA_CONSENT_EVENT, { detail: this.analyticsEnabled }),
+    );
 
     if (this.analyticsEnabled) {
       this.loadAnalytics();

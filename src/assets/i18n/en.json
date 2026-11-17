@@ -230,12 +230,16 @@
     "title": "Study Project - 🍽 Food Hut - Angular Chronicles",
     "welcome": "Welcome to my study project! 🚀",
     "allowAnalytics": "Allow Analytics Tools",
+    "adsInfo": "Advertising: when allowed, this site shows one discreet ad at the end of the page — no pop-ups and no redirects.",
     "privacyPolicy": "Privacy Policy",
     "description": "This is a demonstration of my frontend development skills, focusing on modern web technologies and best practices.",
     "portfolio": "Check out my portfolio",
     "linkedin": "Connect with me on LinkedIn",
     "designCredits": "Design Credits:",
     "viewOriginalDesign": "View original design"
+  },
+  "adsterra": {
+    "label": "Advertisement"
   },
   "privacyPolicy": {
     "title": "Privacy Policy",
